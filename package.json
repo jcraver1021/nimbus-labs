@@ -1,0 +1,18 @@
+{
+  "name": "nimbus-labs",
+  "version": "0.0.1",
+  "description": "root package for nimbus labs apps",
+  "homepage": "https://github.com/jcraver1021/nimbus-labs#readme",
+  "bugs": {
+    "url": "https://github.com/jcraver1021/nimbus-labs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcraver1021/nimbus-labs.git"
+  },
+  "license": "MIT",
+  "author": "James Craver",
+  "scripts": {
+    "test": "test"
+  }
+}
