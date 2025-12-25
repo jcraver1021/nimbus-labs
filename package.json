@@ -13,6 +13,13 @@
   "license": "MIT",
   "author": "James Craver",
   "scripts": {
-    "test": "test"
+    "format": "prettier --write .",
+    "regen-lock": "rm -rf package-lock.json && npm i --workspaces --package-lock-only"
+  },
+  "workspaces": [
+    "app/compsci"
+  ],
+  "devDependencies": {
+    "prettier": "^3.7.4"
   }
 }
