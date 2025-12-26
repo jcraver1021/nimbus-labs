@@ -14,7 +14,7 @@
   "author": "James Craver",
   "scripts": {
     "format": "prettier --write .",
-    "regen-lock": "rm -rf package-lock.json && npm i --workspaces --package-lock-only"
+    "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
   },
   "workspaces": [
     "app/compsci"
