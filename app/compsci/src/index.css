@@ -1,3 +1,7 @@
+/* Global styles for the Compsci app */
+
+/* Root element styles */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -6,9 +10,21 @@
   color-scheme: light dark;
   color: black;
   background-color: white;
+  --color-selected: #b3d4fc;
+  --color-accepted: #b2fab4;
+  --color-rejected: #f7a8a8;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Data display styles */
+
+.data {
+  font-family: 'Source Code Pro', monospace;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

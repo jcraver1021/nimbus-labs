@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/home/Home';
-import ArraySort from './pages/a_sort/ArraySort';
+import ArraySort from './pages/sort/ArraySort';
 
 import './App.css';
 
