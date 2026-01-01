@@ -13,8 +13,6 @@
   "license": "MIT",
   "author": "James Craver",
   "scripts": {
-    "lint": "eslint .",
-    "fix": "eslint . --fix",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
     "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
