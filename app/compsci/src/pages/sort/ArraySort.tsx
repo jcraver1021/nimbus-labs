@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Box, Button, Slider, Stack, Typography} from '@mui/material';
+import {type Selection} from '../../common/selection';
 import Array from '../../components/array/Array';
 
 const minArraySize = 1;
@@ -17,7 +18,7 @@ function generateRandomArray(size: number): number[] {
 function ArraySort() {
   const [arraySize, setArraySize] = useState(defaultArraySize);
   const [values, setValues] = useState(generateRandomArray(arraySize));
-  const [states, setStates] = useState<Map<number, string>>(new Map());
+  const [states, setStates] = useState<Map<number, Selection>>(new Map());
   const [inTransition, setInTransition] = useState(false);
 
   return (
