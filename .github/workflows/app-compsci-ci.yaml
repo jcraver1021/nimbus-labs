@@ -29,15 +29,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: pwd
-      - run: ls
-      - run: pwd && ls && npm ci
-        working-directory: apps/compsci
+      - run: npm ci
+        working-directory: app/compsci
       - run: npm run check-format
-        working-directory: apps/compsci
+        working-directory: app/compsci
       - run: npm run lint
-        working-directory: apps/compsci
+        working-directory: app/compsci
       - run: npm run build --if-present
-        working-directory: apps/compsci
+        working-directory: app/compsci
       - run: npm test
-        working-directory: apps/compsci
+        working-directory: app/compsci
