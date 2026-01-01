@@ -18,7 +18,7 @@ function Array({values, states}: ArrayProps) {
     />
   ));
 
-  return <Box className="array">{cells.map(cell => cell)}</Box>;
+  return <Box className="array">{cells}</Box>;
 }
 
 export default Array;

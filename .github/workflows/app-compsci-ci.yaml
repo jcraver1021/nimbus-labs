@@ -5,13 +5,13 @@ on:
     branches:
       - 'main'
     paths:
-      - 'apps/compsci/**'
+      - 'app/compsci/**'
       - '.github/workflows/app-compsci-ci.yaml'
   pull_request:
     branches:
       - 'main'
     paths:
-      - 'apps/compsci/**'
+      - 'app/compsci/**'
       - '.github/workflows/app-compsci-ci.yaml'
 
 jobs:
