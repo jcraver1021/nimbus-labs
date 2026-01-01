@@ -1,4 +1,4 @@
-export type Selection = 'selected' | 'accepted' | 'rejected' | '' | undefined;
+export type Selection = 'selected' | 'accepted' | 'rejected' | undefined;
 
 export const defaultElevation = 1;
 export const selectionElevations: Record<
@@ -8,7 +8,6 @@ export const selectionElevations: Record<
   selected: 6,
   accepted: 12,
   rejected: 3,
-  '': defaultElevation,
 };
 
 export function getSelectionElevation(state: Selection) {

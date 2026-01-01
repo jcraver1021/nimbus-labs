@@ -20,12 +20,6 @@ describe('GetSelectionElevation', () => {
     const elevation = getSelectionElevation('rejected');
     expect(elevation).toBe(selectionElevations['rejected']);
   });
-
-  it('returns correct elevation for default state', () => {
-    const elevation = getSelectionElevation('');
-    expect(elevation).toBe(selectionElevations['']);
-  });
-
   it('returns correct elevation for undefined state', () => {
     const elevation = getSelectionElevation(undefined);
     expect(elevation).toBe(defaultElevation);
