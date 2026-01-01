@@ -13,14 +13,9 @@
   "license": "MIT",
   "author": "James Craver",
   "scripts": {
-    "check-format": "prettier --check .",
-    "format": "prettier --write .",
     "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
   },
   "workspaces": [
     "app/compsci"
-  ],
-  "devDependencies": {
-    "prettier": "^3.7.4"
-  }
+  ]
 }
