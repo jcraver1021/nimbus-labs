@@ -28,5 +28,11 @@ export {
   GEOLOGIC_PERIODS,
   getPeriodAtTime,
   getPeriodsInRange,
+  getPeriodsByLevel,
+  getEons,
+  getEras,
+  getPeriods,
+  getEpochs,
+  getAges,
   formatTimeYearsAgo,
 } from './geologic-time-scale';

@@ -7,7 +7,10 @@ with support for uncertainty.
 
 - **Temporal Graphs**: Model ancestor-descendant relationships with time-based nodes and edges
 - **Uncertainty Support**: Represent dates as ranges with min/max/best estimates
-- **Geologic Time Scale**: Built-in data for 27+ geologic periods from Holocene to Cryogenian
+- **Comprehensive Geologic Time Scale**: Complete hierarchy from Eon → Era → Period → Epoch → Age
+  - Full Phanerozoic (541 Ma to present) with all standard divisions
+  - Proterozoic, Archean, and Hadean eons (to 4.6 Ga)
+  - 200+ divisions following ICS 2024 standards
 - **Query Functions**: Find common ancestors, lineages, divergence times, and more
 - **Framework Agnostic**: Pure TypeScript with no runtime dependencies
 

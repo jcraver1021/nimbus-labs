@@ -61,8 +61,12 @@ export interface GeologicPeriod {
   name: string;
   start: number;
   end: number;
-  epoch?: string;
+  level: 'eon' | 'era' | 'period' | 'epoch' | 'sub-epoch' | 'age' | 'sub-age';
+  eon?: string;
   era?: string;
+  period?: string;
+  epoch?: string;
+  subEpoch?: string;
   color?: string;
 }
 
