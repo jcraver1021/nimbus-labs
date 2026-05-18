@@ -1,0 +1,119 @@
+.geologic-time-scale {
+  position: absolute;
+  left: 0;
+  width: 420px;
+  height: 100%;
+  display: flex;
+}
+
+/* Eon column - leftmost */
+.eon-column {
+  position: relative;
+  width: 70px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  border-right: 3px solid #999;
+}
+
+.eon-label {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+}
+
+.eon-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.95);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Era column */
+.era-column {
+  position: relative;
+  width: 90px;
+  height: 100%;
+  border-right: 2px solid #888;
+}
+
+.era-label {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  padding: 0.5rem;
+}
+
+.era-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.9);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+/* Period column */
+.period-column {
+  position: relative;
+  width: 110px;
+  height: 100%;
+  border-right: 2px solid #777;
+}
+
+.period-label {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  opacity: 0.85;
+  padding: 0.4rem;
+}
+
+.period-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  letter-spacing: 1px;
+  font-size: 0.65rem;
+}
+
+/* Epoch column - rightmost, finest detail */
+.epoch-column {
+  position: relative;
+  width: 150px;
+  height: 100%;
+  border-right: 2px solid #666;
+}
+
+.epoch-band {
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.epoch-text {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 3px white;
+  line-height: 1.2;
+  font-size: 0.7rem;
+}

@@ -1,0 +1,121 @@
+.timeline-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: #fafafa;
+}
+
+.timeline-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* Tree connections */
+.tree-connections {
+  z-index: 5;
+}
+
+/* Lineages */
+.lineages {
+  position: absolute;
+  left: 440px;
+  right: 0;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.lineage {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(to bottom, #2196f3, #1976d2);
+  box-shadow: 0 0 4px rgba(33, 150, 243, 0.5);
+  border-radius: 2px;
+}
+
+.lineage-line {
+  width: 100%;
+  height: 100%;
+}
+
+.lineage-label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+/* Divergence points */
+.divergence-points {
+  position: absolute;
+  left: 440px;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.divergence-point {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.divergence-marker {
+  position: absolute;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  background: #ff5722;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%);
+}
+
+.divergence-label {
+  position: absolute;
+  left: 40px;
+  top: -10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border-left: 3px solid #ff5722;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  font-style: italic;
+  color: #333;
+}
+
+/* Scrollbar styling */
+.timeline-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
