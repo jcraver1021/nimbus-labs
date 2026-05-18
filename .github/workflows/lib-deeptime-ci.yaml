@@ -13,6 +13,7 @@ on:
     paths:
       - 'lib/deeptime/**'
       - '.github/workflows/lib-deeptime-ci.yaml'
+      - '!**/*.md'
 
 jobs:
   build:

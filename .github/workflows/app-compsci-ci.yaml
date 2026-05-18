@@ -13,6 +13,7 @@ on:
     paths:
       - 'app/compsci/**'
       - '.github/workflows/app-compsci-ci.yaml'
+      - '!**/*.md'
 
 jobs:
   build:
