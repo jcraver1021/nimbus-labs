@@ -20,7 +20,8 @@
     "fix": "eslint . --fix",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:watch": "vitest",
     "build": "tsc",
     "clean": "rm -rf dist"
   },
