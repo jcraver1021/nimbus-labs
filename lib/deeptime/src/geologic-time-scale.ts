@@ -1,5 +1,5 @@
-import type { GeologicPeriod, TimePoint } from './temporal-graph';
-import { getTimeValue } from './temporal-graph';
+import type {GeologicPeriod, TimePoint} from './temporal-graph';
+import {getTimeValue} from './temporal-graph';
 
 /**
  * Geologic time scale with major periods, epochs, and eras.
@@ -205,7 +205,7 @@ export function getPeriodAtTime(time: TimePoint): GeologicPeriod | null {
   const timeValue = getTimeValue(time);
   return (
     GEOLOGIC_PERIODS.find(
-      (period) => timeValue >= period.start && timeValue < period.end
+      period => timeValue >= period.start && timeValue < period.end
     ) ?? null
   );
 }
@@ -217,7 +217,7 @@ export function getPeriodsInRange(
   const startValue = getTimeValue(startTime);
   const endValue = getTimeValue(endTime);
   return GEOLOGIC_PERIODS.filter(
-    (period) => period.start < endValue && period.end > startValue
+    period => period.start < endValue && period.end > startValue
   );
 }
 

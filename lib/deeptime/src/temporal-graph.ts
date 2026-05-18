@@ -54,7 +54,7 @@ export interface TemporalEdge {
 export interface TemporalGraph {
   nodes: Map<string, TemporalNode>;
   edges: Map<string, TemporalEdge>;
-  timeRange: { min: number; max: number };
+  timeRange: {min: number; max: number};
 }
 
 export interface GeologicPeriod {
@@ -70,7 +70,7 @@ export function createTemporalGraph(): TemporalGraph {
   return {
     nodes: new Map(),
     edges: new Map(),
-    timeRange: { min: 0, max: 0 },
+    timeRange: {min: 0, max: 0},
   };
 }
 
@@ -125,7 +125,7 @@ export function getLineage(
 
   while (true) {
     const parentEdge = Array.from(graph.edges.values()).find(
-      (edge) => edge.targetId === currentId
+      edge => edge.targetId === currentId
     );
 
     if (!parentEdge) {
@@ -148,7 +148,7 @@ export function findCommonAncestor(
   graph: TemporalGraph,
   nodeAId: string,
   nodeBId: string
-): { ancestor: TemporalNode; divergenceTime: TimePoint } | null {
+): {ancestor: TemporalNode; divergenceTime: TimePoint} | null {
   const lineageA = getLineage(graph, nodeAId);
   const lineageB = getLineage(graph, nodeBId);
 
@@ -156,7 +156,7 @@ export function findCommonAncestor(
     return null;
   }
 
-  const lineageAIds = new Set(lineageA.map((n) => n.id));
+  const lineageAIds = new Set(lineageA.map(n => n.id));
 
   for (const ancestorNode of lineageB) {
     if (lineageAIds.has(ancestorNode.id)) {
@@ -185,7 +185,7 @@ function findEdgeToDescendant(
   descendantId: string
 ): TemporalEdge | null {
   const lineage = getLineage(graph, descendantId);
-  const ancestorIndex = lineage.findIndex((n) => n.id === ancestorId);
+  const ancestorIndex = lineage.findIndex(n => n.id === ancestorId);
 
   if (ancestorIndex === -1 || ancestorIndex === 0) {
     return null;
@@ -193,16 +193,18 @@ function findEdgeToDescendant(
 
   const childNode = lineage[ancestorIndex - 1];
 
-  return Array.from(graph.edges.values()).find(
-    (edge) => edge.sourceId === ancestorId && edge.targetId === childNode.id
-  ) ?? null;
+  return (
+    Array.from(graph.edges.values()).find(
+      edge => edge.sourceId === ancestorId && edge.targetId === childNode.id
+    ) ?? null
+  );
 }
 
 export function getNodesAtTime(
   graph: TemporalGraph,
   time: number
 ): TemporalNode[] {
-  return Array.from(graph.nodes.values()).filter((node) => {
+  return Array.from(graph.nodes.values()).filter(node => {
     const originMin = getTimeMin(node.timeOfOrigin);
     const extinctionMax = node.timeOfExtinction
       ? getTimeMax(node.timeOfExtinction)
@@ -231,7 +233,7 @@ export function getDescendants(
     visited.add(currentId);
 
     const childEdges = Array.from(graph.edges.values()).filter(
-      (edge) => edge.sourceId === currentId
+      edge => edge.sourceId === currentId
     );
 
     for (const edge of childEdges) {

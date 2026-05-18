@@ -17,7 +17,7 @@ import {
   type TemporalEdge,
   type TimePoint,
 } from './temporal-graph';
-import { getPeriodAtTime, formatTimeYearsAgo } from './geologic-time-scale';
+import {getPeriodAtTime, formatTimeYearsAgo} from './geologic-time-scale';
 
 function formatTimeWithUncertainty(time: TimePoint): string {
   if (isTimeRange(time)) {
@@ -36,42 +36,42 @@ export function createPrimateEvolutionExample() {
     id: 'primate-ancestor',
     name: 'Common Primate Ancestor',
     timeOfOrigin: 65_000_000,
-    metadata: { description: 'Early primate ancestor from Paleocene' },
+    metadata: {description: 'Early primate ancestor from Paleocene'},
   };
 
   const apeAncestor: TemporalNode = {
     id: 'ape-ancestor',
     name: 'Common Ape Ancestor',
     timeOfOrigin: 28_000_000,
-    metadata: { description: 'Great ape common ancestor' },
+    metadata: {description: 'Great ape common ancestor'},
   };
 
   const hominidAncestor: TemporalNode = {
     id: 'hominid-ancestor',
     name: 'Human-Chimp Ancestor',
-    timeOfOrigin: { min: 12_000_000, max: 14_000_000, best: 13_000_000 },
-    metadata: { description: 'Uncertain dating based on molecular clock' },
+    timeOfOrigin: {min: 12_000_000, max: 14_000_000, best: 13_000_000},
+    metadata: {description: 'Uncertain dating based on molecular clock'},
   };
 
   const human: TemporalNode = {
     id: 'human',
     name: 'Homo sapiens',
-    timeOfOrigin: { min: 250_000, max: 350_000, best: 300_000 },
-    metadata: { commonName: 'Human', status: 'extant' },
+    timeOfOrigin: {min: 250_000, max: 350_000, best: 300_000},
+    metadata: {commonName: 'Human', status: 'extant'},
   };
 
   const chimp: TemporalNode = {
     id: 'chimp',
     name: 'Pan troglodytes',
     timeOfOrigin: 2_000_000,
-    metadata: { commonName: 'Chimpanzee', status: 'extant' },
+    metadata: {commonName: 'Chimpanzee', status: 'extant'},
   };
 
   const gorilla: TemporalNode = {
     id: 'gorilla',
     name: 'Gorilla gorilla',
     timeOfOrigin: 2_000_000,
-    metadata: { commonName: 'Gorilla', status: 'extant' },
+    metadata: {commonName: 'Gorilla', status: 'extant'},
   };
 
   const neanderthal: TemporalNode = {
@@ -79,7 +79,7 @@ export function createPrimateEvolutionExample() {
     name: 'Homo neanderthalensis',
     timeOfOrigin: 430_000,
     timeOfExtinction: 40_000,
-    metadata: { commonName: 'Neanderthal', status: 'extinct' },
+    metadata: {commonName: 'Neanderthal', status: 'extinct'},
   };
 
   addNode(graph, primateAncestor);
@@ -101,35 +101,35 @@ export function createPrimateEvolutionExample() {
       id: 'e2',
       sourceId: 'ape-ancestor',
       targetId: 'gorilla',
-      divergenceTime: { min: 9_000_000, max: 11_000_000, best: 10_000_000 },
+      divergenceTime: {min: 9_000_000, max: 11_000_000, best: 10_000_000},
     },
     {
       id: 'e3',
       sourceId: 'ape-ancestor',
       targetId: 'hominid-ancestor',
-      divergenceTime: { min: 12_000_000, max: 14_000_000, best: 13_000_000 },
+      divergenceTime: {min: 12_000_000, max: 14_000_000, best: 13_000_000},
     },
     {
       id: 'e4',
       sourceId: 'hominid-ancestor',
       targetId: 'human',
-      divergenceTime: { min: 5_500_000, max: 7_500_000, best: 6_000_000 },
+      divergenceTime: {min: 5_500_000, max: 7_500_000, best: 6_000_000},
     },
     {
       id: 'e5',
       sourceId: 'hominid-ancestor',
       targetId: 'chimp',
-      divergenceTime: { min: 5_500_000, max: 7_500_000, best: 6_000_000 },
+      divergenceTime: {min: 5_500_000, max: 7_500_000, best: 6_000_000},
     },
     {
       id: 'e6',
       sourceId: 'hominid-ancestor',
       targetId: 'neanderthal',
-      divergenceTime: { min: 500_000, max: 600_000, best: 550_000 },
+      divergenceTime: {min: 500_000, max: 600_000, best: 550_000},
     },
   ];
 
-  edges.forEach((edge) => addEdge(graph, edge));
+  edges.forEach(edge => addEdge(graph, edge));
 
   return graph;
 }
@@ -163,7 +163,7 @@ export function demonstrateQueries() {
 
   const humanLineage = getLineage(graph, 'human');
   console.log('Human lineage (descendant to ancestor):');
-  humanLineage.forEach((node) => {
+  humanLineage.forEach(node => {
     console.log(
       `  - ${node.name} (${formatTimeWithUncertainty(node.timeOfOrigin)})`
     );

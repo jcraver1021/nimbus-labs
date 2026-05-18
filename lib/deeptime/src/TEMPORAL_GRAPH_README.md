@@ -1,6 +1,7 @@
 # Deep Time - Temporal Graph Model
 
-A framework-agnostic model for representing graphical relationships over geologic time with support for uncertainty.
+A framework-agnostic model for representing graphical relationships over geologic time with support
+for uncertainty.
 
 ## Installation
 
@@ -23,19 +24,22 @@ import {
 
 ### Time Representation
 
-Time is measured in "years ago" (before present). The model supports both certain and uncertain time measurements:
+Time is measured in "years ago" (before present). The model supports both certain and uncertain time
+measurements:
 
 **Certain Time:**
+
 ```typescript
 const time: TimePoint = 6_000_000; // Exactly 6 million years ago
 ```
 
 **Uncertain Time:**
+
 ```typescript
 const time: TimePoint = {
   min: 5_500_000,
   max: 7_500_000,
-  best: 6_000_000  // Optional best estimate
+  best: 6_000_000, // Optional best estimate
 };
 ```
 
@@ -70,12 +74,7 @@ const isUncertain = isTimeRange(time);
 ## Usage Example
 
 ```typescript
-import {
-  createTemporalGraph,
-  addNode,
-  addEdge,
-  findCommonAncestor,
-} from './temporal-graph';
+import {createTemporalGraph, addNode, addEdge, findCommonAncestor} from './temporal-graph';
 
 const graph = createTemporalGraph();
 
@@ -86,8 +85,8 @@ const human: TemporalNode = {
   timeOfOrigin: {
     min: 250_000,
     max: 350_000,
-    best: 300_000
-  }
+    best: 300_000,
+  },
 };
 
 addNode(graph, human);
@@ -100,8 +99,8 @@ addEdge(graph, {
   divergenceTime: {
     min: 5_500_000,
     max: 7_500_000,
-    best: 6_000_000
-  }
+    best: 6_000_000,
+  },
 });
 
 // Query functions automatically handle uncertainty
@@ -123,6 +122,7 @@ console.log(result?.divergenceTime);
 ### Functions
 
 **Time Utilities:**
+
 - `isTimeRange(time)` - Check if time has uncertainty
 - `getTimeValue(time)` - Get best estimate or midpoint
 - `getTimeMin(time)` - Get earliest possible time
@@ -130,11 +130,13 @@ console.log(result?.divergenceTime);
 - `timeIntersects(time, point)` - Check if point falls within range
 
 **Graph Building:**
+
 - `createTemporalGraph()` - Create empty graph
 - `addNode(graph, node)` - Add a node
 - `addEdge(graph, edge)` - Add an edge
 
 **Graph Queries:**
+
 - `findCommonAncestor(graph, nodeA, nodeB)` - Find common ancestor and divergence time
 - `getLineage(graph, nodeId)` - Get ancestry chain
 - `getDescendants(graph, nodeId)` - Get all descendants
@@ -142,6 +144,7 @@ console.log(result?.divergenceTime);
 - `getDivergenceTime(graph, nodeA, nodeB)` - Get divergence time
 
 **Geologic Time Scale:**
+
 - `getPeriodAtTime(time)` - Get geologic period for a time
 - `getPeriodsInRange(start, end)` - Get all periods in a range
 - `formatTimeYearsAgo(years)` - Format time for display
@@ -149,6 +152,7 @@ console.log(result?.divergenceTime);
 ## Testing
 
 Run tests with:
+
 ```bash
 npm test -- temporal-graph
 ```

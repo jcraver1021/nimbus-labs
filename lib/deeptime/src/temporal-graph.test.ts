@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import {describe, it, expect} from 'vitest';
 import {
   createTemporalGraph,
   addNode,
@@ -24,7 +24,7 @@ describe('temporal-graph', () => {
       const graph = createTemporalGraph();
       expect(graph.nodes.size).toBe(0);
       expect(graph.edges.size).toBe(0);
-      expect(graph.timeRange).toEqual({ min: 0, max: 0 });
+      expect(graph.timeRange).toEqual({min: 0, max: 0});
     });
   });
 
@@ -143,7 +143,7 @@ describe('temporal-graph', () => {
 
       const lineage = getLineage(graph, 'leaf');
 
-      expect(lineage.map((n) => n.id)).toEqual(['leaf', 'middle', 'root']);
+      expect(lineage.map(n => n.id)).toEqual(['leaf', 'middle', 'root']);
     });
 
     it('should return empty array for non-existent node', () => {
@@ -240,10 +240,10 @@ describe('temporal-graph', () => {
       addNode(graph, recent);
 
       const nodesAt60M = getNodesAtTime(graph, 60_000_000);
-      expect(nodesAt60M.map((n) => n.id)).toEqual(['ancient']);
+      expect(nodesAt60M.map(n => n.id)).toEqual(['ancient']);
 
       const nodesAt5M = getNodesAtTime(graph, 5_000_000);
-      expect(nodesAt5M.map((n) => n.id)).toEqual(['recent']);
+      expect(nodesAt5M.map(n => n.id)).toEqual(['recent']);
     });
   });
 
@@ -299,7 +299,7 @@ describe('temporal-graph', () => {
       const descendants = getDescendants(graph, 'root');
 
       expect(descendants.length).toBe(3);
-      expect(descendants.map((n) => n.id).sort()).toEqual([
+      expect(descendants.map(n => n.id).sort()).toEqual([
         'child1',
         'child2',
         'grandchild',
@@ -354,7 +354,7 @@ describe('temporal-graph', () => {
     describe('isTimeRange', () => {
       it('should identify time ranges', () => {
         expect(isTimeRange(1_000_000)).toBe(false);
-        expect(isTimeRange({ min: 900_000, max: 1_100_000 })).toBe(true);
+        expect(isTimeRange({min: 900_000, max: 1_100_000})).toBe(true);
       });
     });
 
@@ -373,7 +373,7 @@ describe('temporal-graph', () => {
       });
 
       it('should return midpoint if no best estimate', () => {
-        const time: TimeRange = { min: 5_000_000, max: 7_000_000 };
+        const time: TimeRange = {min: 5_000_000, max: 7_000_000};
         expect(getTimeValue(time)).toBe(6_000_000);
       });
     });
@@ -385,7 +385,7 @@ describe('temporal-graph', () => {
       });
 
       it('should return bounds for uncertain time', () => {
-        const time: TimeRange = { min: 5_000_000, max: 7_000_000 };
+        const time: TimeRange = {min: 5_000_000, max: 7_000_000};
         expect(getTimeMin(time)).toBe(5_000_000);
         expect(getTimeMax(time)).toBe(7_000_000);
       });
@@ -393,7 +393,7 @@ describe('temporal-graph', () => {
 
     describe('timeIntersects', () => {
       it('should check if point falls within time range', () => {
-        const time: TimeRange = { min: 5_000_000, max: 7_000_000 };
+        const time: TimeRange = {min: 5_000_000, max: 7_000_000};
         expect(timeIntersects(time, 6_000_000)).toBe(true);
         expect(timeIntersects(time, 5_000_000)).toBe(true);
         expect(timeIntersects(time, 7_000_000)).toBe(true);
@@ -414,7 +414,7 @@ describe('temporal-graph', () => {
         const node: TemporalNode = {
           id: 'uncertain',
           name: 'Uncertain Species',
-          timeOfOrigin: { min: 5_500_000, max: 7_000_000, best: 6_000_000 },
+          timeOfOrigin: {min: 5_500_000, max: 7_000_000, best: 6_000_000},
         };
 
         addNode(graph, node);
@@ -444,7 +444,7 @@ describe('temporal-graph', () => {
           id: 'e1',
           sourceId: 'ancestor',
           targetId: 'descendant',
-          divergenceTime: { min: 5_000_000, max: 8_000_000, best: 6_500_000 },
+          divergenceTime: {min: 5_000_000, max: 8_000_000, best: 6_500_000},
         });
 
         const edge = graph.edges.get('e1');
@@ -461,7 +461,7 @@ describe('temporal-graph', () => {
         const ancestor: TemporalNode = {
           id: 'ancestor',
           name: 'Ancestor',
-          timeOfOrigin: { min: 12_000_000, max: 14_000_000 },
+          timeOfOrigin: {min: 12_000_000, max: 14_000_000},
         };
         const a: TemporalNode = {
           id: 'a',
@@ -482,13 +482,13 @@ describe('temporal-graph', () => {
           id: 'e1',
           sourceId: 'ancestor',
           targetId: 'a',
-          divergenceTime: { min: 5_500_000, max: 7_000_000, best: 6_000_000 },
+          divergenceTime: {min: 5_500_000, max: 7_000_000, best: 6_000_000},
         });
         addEdge(graph, {
           id: 'e2',
           sourceId: 'ancestor',
           targetId: 'b',
-          divergenceTime: { min: 5_500_000, max: 7_000_000, best: 6_000_000 },
+          divergenceTime: {min: 5_500_000, max: 7_000_000, best: 6_000_000},
         });
 
         const result = findCommonAncestor(graph, 'a', 'b');

@@ -1,6 +1,7 @@
 # @nimbus-labs/deeptime
 
-A framework-agnostic TypeScript library for representing graphical relationships over geologic time with support for uncertainty.
+A framework-agnostic TypeScript library for representing graphical relationships over geologic time
+with support for uncertainty.
 
 ## Features
 
@@ -48,14 +49,14 @@ const human: TemporalNode = {
   timeOfOrigin: {
     min: 250_000,
     max: 350_000,
-    best: 300_000
-  }
+    best: 300_000,
+  },
 };
 
 const chimp: TemporalNode = {
   id: 'chimp',
   name: 'Pan troglodytes',
-  timeOfOrigin: 2_000_000
+  timeOfOrigin: 2_000_000,
 };
 
 addNode(graph, human);
@@ -69,8 +70,8 @@ addEdge(graph, {
   divergenceTime: {
     min: 5_500_000,
     max: 7_500_000,
-    best: 6_000_000
-  }
+    best: 6_000_000,
+  },
 });
 
 // Query the graph
@@ -98,17 +99,20 @@ console.log(formatTimeYearsAgo(6_000_000)); // "6.0M years ago"
 ### Functions
 
 **Time Utilities:**
+
 - `isTimeRange(time)` - Check if time has uncertainty
 - `getTimeValue(time)` - Get best estimate or midpoint
 - `getTimeMin(time)` / `getTimeMax(time)` - Get bounds
 - `timeIntersects(time, point)` - Check if point falls within range
 
 **Graph Building:**
+
 - `createTemporalGraph()` - Create empty graph
 - `addNode(graph, node)` - Add a node
 - `addEdge(graph, edge)` - Add an edge
 
 **Graph Queries:**
+
 - `findCommonAncestor(graph, nodeA, nodeB)` - Find common ancestor
 - `getLineage(graph, nodeId)` - Get ancestry chain
 - `getDescendants(graph, nodeId)` - Get all descendants
@@ -116,6 +120,7 @@ console.log(formatTimeYearsAgo(6_000_000)); // "6.0M years ago"
 - `getDivergenceTime(graph, nodeA, nodeB)` - Get divergence time
 
 **Geologic Time Scale:**
+
 - `GEOLOGIC_PERIODS` - Array of 27+ geologic periods
 - `getPeriodAtTime(time)` - Get geologic period for a time
 - `getPeriodsInRange(start, end)` - Get all periods in a range
@@ -136,7 +141,8 @@ npm run clean
 
 ## Examples
 
-See `src/temporal-graph.example.ts` for a complete example showing primate evolution with uncertainty.
+See `src/temporal-graph.example.ts` for a complete example showing primate evolution with
+uncertainty.
 
 ## License
 
