@@ -1,18 +1,18 @@
-name: Compsci App CI
+name: Biology App CI
 
 on:
   push:
     branches:
       - 'main'
     paths:
-      - 'app/compsci/**'
-      - '.github/workflows/app-compsci-ci.yaml'
+      - 'app/bio/**'
+      - '.github/workflows/app-bio-ci.yaml'
   pull_request:
     branches:
       - 'main'
     paths:
-      - 'app/compsci/**'
-      - '.github/workflows/app-compsci-ci.yaml'
+      - 'app/bio/**'
+      - '.github/workflows/app-bio-ci.yaml'
 
 jobs:
   build:
@@ -30,7 +30,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run check-format -w compsci
-      - run: npm run lint -w compsci
-      - run: npm run build -w compsci
-      - run: npm test -w compsci
+      - run: npm run build -w @nimbus-labs/deeptime
+      - run: npm run check-format -w bio
+      - run: npm run lint -w bio
+      - run: npm run build -w bio
+      - run: npm test -w bio

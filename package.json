@@ -13,9 +13,12 @@
   "license": "MIT",
   "author": "James Craver",
   "scripts": {
+    "format": "npm run format --workspaces --if-present",
     "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
   },
   "workspaces": [
-    "app/compsci"
+    "app/bio",
+    "app/compsci",
+    "lib/deeptime"
   ]
 }

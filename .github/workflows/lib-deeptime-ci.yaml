@@ -1,18 +1,18 @@
-name: Compsci App CI
+name: Deeptime Library CI
 
 on:
   push:
     branches:
       - 'main'
     paths:
-      - 'app/compsci/**'
-      - '.github/workflows/app-compsci-ci.yaml'
+      - 'lib/deeptime/**'
+      - '.github/workflows/lib-deeptime-ci.yaml'
   pull_request:
     branches:
       - 'main'
     paths:
-      - 'app/compsci/**'
-      - '.github/workflows/app-compsci-ci.yaml'
+      - 'lib/deeptime/**'
+      - '.github/workflows/lib-deeptime-ci.yaml'
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run check-format -w compsci
-      - run: npm run lint -w compsci
-      - run: npm run build -w compsci
-      - run: npm test -w compsci
+      - run: npm run check-format -w @nimbus-labs/deeptime
+      - run: npm run lint -w @nimbus-labs/deeptime
+      - run: npm run build -w @nimbus-labs/deeptime
+      - run: npm test -w @nimbus-labs/deeptime

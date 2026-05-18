@@ -1,0 +1,40 @@
+{
+  "name": "@nimbus-labs/deeptime",
+  "version": "0.0.1",
+  "description": "Framework-agnostic model for representing graphical relationships over geologic time",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint . --fix",
+    "check-format": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "geologic-time",
+    "phylogenetic",
+    "temporal-graph",
+    "deep-time",
+    "evolution"
+  ],
+  "author": "James Craver",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.16"
+  }
+}
