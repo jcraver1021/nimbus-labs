@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - 'lib/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yaml'
+      - '.github/workflows/npm-ci-reusable.yaml'
+      - '!**/*.md'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - 'lib/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yaml'
+      - '.github/workflows/npm-ci-reusable.yaml'
+      - '!**/*.md'
+
+jobs:
+  # Detect which packages have changes
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      deeptime: ${{ steps.filter.outputs.deeptime }}
+      bio: ${{ steps.filter.outputs.bio }}
+      compsci: ${{ steps.filter.outputs.compsci }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            deeptime:
+              - 'lib/deeptime/**'
+              - 'package.json'
+              - 'package-lock.json'
+            bio:
+              - 'app/bio/**'
+              - 'lib/deeptime/**'
+              - 'package.json'
+              - 'package-lock.json'
+            compsci:
+              - 'app/compsci/**'
+              - 'package.json'
+              - 'package-lock.json'
+
+  # Test deeptime library
+  test-lib-deeptime:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.deeptime == 'true'
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    uses: ./.github/workflows/npm-ci-reusable.yaml
+    with:
+      workspace: '@nimbus-labs/deeptime'
+      node-version: ${{ matrix.node-version }}
+
+  # Test bio app (depends on deeptime)
+  test-app-bio:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.bio == 'true'
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    uses: ./.github/workflows/npm-ci-reusable.yaml
+    with:
+      workspace: 'bio'
+      dependencies: '@nimbus-labs/deeptime'
+      node-version: ${{ matrix.node-version }}
+
+  # Test compsci app
+  test-app-compsci:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.compsci == 'true'
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    uses: ./.github/workflows/npm-ci-reusable.yaml
+    with:
+      workspace: 'compsci'
+      node-version: ${{ matrix.node-version }}
