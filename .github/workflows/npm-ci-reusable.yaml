@@ -1,0 +1,47 @@
+name: NPM CI (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      workspace:
+        description: 'Workspace name (e.g., bio, compsci, @nimbus-labs/deeptime)'
+        required: true
+        type: string
+      dependencies:
+        description: 'Comma-separated list of workspace dependencies to build first'
+        required: false
+        type: string
+        default: ''
+      node-version:
+        description: 'Node.js version to use'
+        required: false
+        type: string
+        default: '22.x'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: 'npm'
+      - run: npm ci
+
+      # Build dependencies first if specified
+      - name: Build dependencies
+        if: inputs.dependencies != ''
+        run: |
+          IFS=',' read -ra DEPS <<< "${{ inputs.dependencies }}"
+          for dep in "${DEPS[@]}"; do
+            echo "Building dependency: $dep"
+            npm run build -w "$dep"
+          done
+
+      # Run CI checks for the workspace
+      - run: npm run check-format -w ${{ inputs.workspace }}
+      - run: npm run lint -w ${{ inputs.workspace }}
+      - run: npm run build -w ${{ inputs.workspace }}
+      - run: npm test -w ${{ inputs.workspace }}
