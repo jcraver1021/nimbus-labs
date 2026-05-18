@@ -13,20 +13,16 @@ We use the following tech stack:
 ## Adding an app
 
 1. Under [/apps](.), run `npm create vite@latest`
-
    1. Choose `React` for the framework.
    1. Choose `Typescript + SWC` for the variant.
 
 1. Add the path to the app to `workspaces` under the project [package.json](../package.json).
 
 1. Add the following to the app's `package.json`:
-
    1. `devDependencies`:
-
       1. `"prettier": "*"`
 
    1. `scripts`:
-
       1. `"fix": "eslint . --fix"`
       1. `"check-format": "prettier --check ."`
       1. `"format": "prettier --write ."`

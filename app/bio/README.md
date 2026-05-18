@@ -30,7 +30,7 @@ npm run preview -w bio
 
 ## Structure
 
-```
+```text
 app/bio/
 ├── src/
 │   ├── pages/          # Page components

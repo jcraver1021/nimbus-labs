@@ -4,7 +4,7 @@ This component displays the hierarchical structure of geologic time in three col
 
 ## Structure
 
-```
+```text
 ┌──────────┬───────────┬──────────────────┐
 │   ERA    │   EPOCH   │     PERIOD       │
 ├──────────┼───────────┼──────────────────┤

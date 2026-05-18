@@ -14,11 +14,18 @@
   "author": "James Craver",
   "scripts": {
     "format": "npm run format --workspaces --if-present",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "fix:md": "markdownlint '**/*.md' --ignore node_modules --fix",
+    "check-format:md": "prettier --check '**/*.md'",
+    "format:md": "prettier --write '**/*.md'",
     "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
   },
   "workspaces": [
     "app/bio",
     "app/compsci",
     "lib/deeptime"
-  ]
+  ],
+  "devDependencies": {
+    "markdownlint-cli": "^0.48.0"
+  }
 }
