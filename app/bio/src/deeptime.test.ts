@@ -5,6 +5,10 @@ import {
   addEdge,
   findCommonAncestor,
   GEOLOGIC_PERIODS,
+  getEons,
+  getEras,
+  getPeriods,
+  getEpochs,
   formatTimeYearsAgo,
   type TemporalNode,
 } from '@nimbus-labs/deeptime';
@@ -67,8 +71,34 @@ describe('deeptime library', () => {
 
   it('should have geologic periods data', () => {
     expect(GEOLOGIC_PERIODS).toBeDefined();
-    expect(GEOLOGIC_PERIODS.length).toBeGreaterThan(0);
-    expect(GEOLOGIC_PERIODS[0].name).toBe('Holocene');
+    expect(GEOLOGIC_PERIODS.length).toBeGreaterThan(100); // Should have 200+ entries
+
+    // Check that we have the full hierarchy
+    const eons = getEons();
+    const eras = getEras();
+    const periods = getPeriods();
+    const epochs = getEpochs();
+
+    expect(eons.length).toBeGreaterThan(0);
+    expect(eras.length).toBeGreaterThan(0);
+    expect(periods.length).toBeGreaterThan(0);
+    expect(epochs.length).toBeGreaterThan(0);
+
+    // Check specific well-known entries
+    const phanerozoic = eons.find(e => e.name === 'Phanerozoic');
+    const cenozoic = eras.find(e => e.name === 'Cenozoic');
+    const quaternary = periods.find(p => p.name === 'Quaternary');
+    const holocene = epochs.find(e => e.name === 'Holocene');
+
+    expect(phanerozoic).toBeDefined();
+    expect(cenozoic).toBeDefined();
+    expect(quaternary).toBeDefined();
+    expect(holocene).toBeDefined();
+
+    // Check hierarchy relationships
+    expect(cenozoic?.eon).toBe('Phanerozoic');
+    expect(quaternary?.era).toBe('Cenozoic');
+    expect(holocene?.period).toBe('Quaternary');
   });
 
   it('should format time correctly', () => {
