@@ -30,12 +30,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-        working-directory: lib/deeptime
-      - run: npm run check-format
-        working-directory: lib/deeptime
-      - run: npm run lint
-        working-directory: lib/deeptime
-      - run: npm run build --if-present
-        working-directory: lib/deeptime
-      - run: npm test
-        working-directory: lib/deeptime
+      - run: npm run check-format -w @nimbus-labs/deeptime
+      - run: npm run lint -w @nimbus-labs/deeptime
+      - run: npm run build -w @nimbus-labs/deeptime
+      - run: npm test -w @nimbus-labs/deeptime
