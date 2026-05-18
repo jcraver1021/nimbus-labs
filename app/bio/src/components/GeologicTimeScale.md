@@ -45,11 +45,9 @@ This component displays the hierarchical structure of geologic time in three col
 1. **Era** (e.g., Cenozoic, Mesozoic, Paleozoic, Precambrian)
    - Largest divisions of geologic time
    - Marked with bold vertical labels and colored left border
-   
 2. **Epoch** (e.g., Quaternary, Neogene, Paleogene)
    - Subdivisions of Eras
    - Shown in middle column with era-specific colors
-   
 3. **Period** (e.g., Holocene, Pleistocene, Pliocene)
    - Smallest divisions shown
    - Individual color bands based on geological convention

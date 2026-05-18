@@ -34,17 +34,20 @@ Phanerozoic (Eon)
 ## Coverage
 
 ### Eons
+
 - **Phanerozoic**: 0 - 541 Ma (current eon, "visible life")
 - **Proterozoic**: 541 Ma - 2.5 Ga
 - **Archean**: 2.5 - 4.0 Ga
 - **Hadean**: 4.0 - 4.6 Ga (formation of Earth)
 
 ### Phanerozoic Eras
+
 - **Cenozoic**: 0 - 66 Ma (Age of Mammals)
 - **Mesozoic**: 66 - 252 Ma (Age of Reptiles)
 - **Paleozoic**: 252 - 541 Ma (Ancient Life)
 
 ### Major Periods
+
 - Quaternary, Neogene, Paleogene (Cenozoic)
 - Cretaceous, Jurassic, Triassic (Mesozoic)
 - Permian, Carboniferous, Devonian, Silurian, Ordovician, Cambrian (Paleozoic)
@@ -125,15 +128,16 @@ const allAges = getPeriodsByLevel('age');
 ```typescript
 import {formatTimeYearsAgo} from '@nimbus-labs/deeptime';
 
-formatTimeYearsAgo(300_000);      // "300.0k years ago"
-formatTimeYearsAgo(6_000_000);    // "6.0M years ago"
-formatTimeYearsAgo(66_000_000);   // "66.0M years ago"
+formatTimeYearsAgo(300_000); // "300.0k years ago"
+formatTimeYearsAgo(6_000_000); // "6.0M years ago"
+formatTimeYearsAgo(66_000_000); // "66.0M years ago"
 formatTimeYearsAgo(4_600_000_000); // "4.60B years ago"
 ```
 
 ## Colors
 
 Standard colors follow International Commission on Stratigraphy conventions:
+
 - Cenozoic periods: Yellow/orange tones
 - Mesozoic periods: Green/teal tones
 - Paleozoic periods: Green/blue tones

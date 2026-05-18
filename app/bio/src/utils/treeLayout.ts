@@ -64,7 +64,14 @@ function layoutSubtree(
   children.forEach(childId => {
     const childNode = graph.nodes.get(childId);
     if (childNode) {
-      childX = layoutSubtree(graph, childId, childX, xSpacing, positions, visited);
+      childX = layoutSubtree(
+        graph,
+        childId,
+        childX,
+        xSpacing,
+        positions,
+        visited
+      );
       const pos = positions.get(childId);
       if (pos !== undefined) {
         childPositions.push(pos);

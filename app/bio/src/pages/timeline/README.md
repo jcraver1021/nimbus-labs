@@ -8,7 +8,8 @@ A scrollable visualization showing evolutionary relationships over deep time.
 
 The visualization now shows the actual tree/forest relationships between nodes:
 
-1. **Vertical Lines (Lineages)**: Each lineage is shown as a vertical blue line representing the time span that organism existed
+1. **Vertical Lines (Lineages)**: Each lineage is shown as a vertical blue line representing the
+   time span that organism existed
 
 2. **Branch Connections**: Orange lines connecting parent to child lineages:
    - Horizontal line from parent at divergence time
@@ -26,6 +27,7 @@ The visualization now shows the actual tree/forest relationships between nodes:
 ### Geologic Time Scale
 
 4-column hierarchy showing:
+
 - **Eon** (Phanerozoic, Proterozoic, etc.)
 - **Era** (Cenozoic, Mesozoic, Paleozoic)
 - **Period** (Quaternary, Cretaceous, Jurassic, etc.)
