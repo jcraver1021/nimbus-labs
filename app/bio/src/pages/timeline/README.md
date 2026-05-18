@@ -37,7 +37,7 @@ The visualization now shows the actual tree/forest relationships between nodes:
 
 The current example shows arthropod lineages:
 
-```
+```text
 arthropod-ancestor (540 Ma)
 ├── trilobites (extinct 252 Ma)
 ├── chelicerates (spiders, scorpions)

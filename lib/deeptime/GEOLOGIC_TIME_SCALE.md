@@ -6,7 +6,7 @@ Comprehensive geologic time scale based on the International Commission on Strat
 
 The geologic time scale is organized hierarchically from largest to smallest:
 
-```
+```text
 Eon
 └── Era
     └── Period
@@ -18,7 +18,7 @@ Eon
 
 ### Example Hierarchy
 
-```
+```text
 Phanerozoic (Eon)
 └── Cenozoic (Era)
     └── Quaternary (Period)
