@@ -11,8 +11,6 @@
   color: black;
   background-color: white;
   --color-selected: #b3d4fc;
-  --color-accepted: #b2fab4;
-  --color-rejected: #f7a8a8;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

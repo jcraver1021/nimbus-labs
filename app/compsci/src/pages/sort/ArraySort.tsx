@@ -29,7 +29,7 @@ function ArraySort() {
   const [slots, setSlots] = useState<Map<number, number>>(
     () => slotsFromEntries(generateEntries(0)) // empty; will sync on first generate
   );
-  const [lifted, setSwapping] = useState<Set<number>>(new Set());
+  const [lifted, setLifted] = useState<Set<number>>(new Set());
   const [states, setStates] = useState<Map<number, Selection>>(new Map());
   const [inTransition, setInTransition] = useState(false);
 
@@ -46,7 +46,7 @@ function ArraySort() {
     // Cancel any running sort before replacing the array.
     abortRef.current = true;
     setInTransition(false);
-    setSwapping(new Set());
+    setLifted(new Set());
     setStates(new Map());
 
     const next = generateEntries(arraySize);
@@ -80,6 +80,7 @@ function ArraySort() {
         setTimeout(() => clearInterval(poll), ms + 1);
       });
 
+    // Leave state alone during animation
     outer: for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length - i - 1; j++) {
         if (abortRef.current) break outer;
@@ -87,49 +88,41 @@ function ArraySort() {
         const idA = arr[j].id;
         const idB = arr[j + 1].id;
 
-        // --- Phase 1: highlight the pair ---
+        // Rise and highlight simultaneously.
+        setLifted(new Set([idA, idB]));
         setStates(
           new Map([
             [idA, 'selected'],
             [idB, 'selected'],
           ])
         );
-        await delay(200);
+        await delay(300);
         if (abortRef.current) break outer;
 
         if (arr[j].value > arr[j + 1].value) {
+          // Slide while raised.
           const animSlots = new Map(slotMap);
           animSlots.set(idA, j + 1);
           animSlots.set(idB, j);
-          setSwapping(new Set([idA, idB]));
           setSlots(animSlots);
           await delay(350);
           if (abortRef.current) break outer;
 
+          // Commit the swap to local state only
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
           slotMap.set(idA, j + 1);
           slotMap.set(idB, j);
-          setEntries([...arr]);
-
-          setSwapping(new Set());
-          setSlots(new Map(slotMap));
-          await delay(200); // settle
-          if (abortRef.current) break outer;
-        } else {
-          setStates(
-            new Map([
-              [idA, 'rejected'],
-              [idB, 'accepted'],
-            ])
-          );
-          await delay(250);
-          if (abortRef.current) break outer;
         }
 
+        setLifted(new Set());
         setStates(new Map());
+        await delay(200);
+        if (abortRef.current) break outer;
       }
     }
 
+    setEntries([...arr]);
+    setSlots(slotsFromEntries(arr));
     if (!abortRef.current) {
       setInTransition(false);
     }
@@ -164,7 +157,7 @@ function ArraySort() {
             onClick={() => {
               abortRef.current = true;
               setInTransition(false);
-              setSwapping(new Set());
+              setLifted(new Set());
               setStates(new Map());
             }}
           >

@@ -1,25 +1,13 @@
 .datum {
   padding: 10px;
   border: 1px solid black;
-  margin-bottom: 5px;
   border-radius: 4px;
   display: flex;
 
   top: 10px;
   left: 10px;
-  transition:
-    transform 0.35s ease,
-    background-color 0.3s ease;
 }
 
 .datum.selected {
   background-color: var(--color-selected);
-}
-
-.datum.accepted {
-  background-color: var(--color-accepted);
-}
-
-.datum.rejected {
-  background-color: var(--color-rejected);
 }
