@@ -4,7 +4,7 @@ import {describe, it, expect} from 'vitest';
 
 describe('Datum', () => {
   it('renders with correct value', () => {
-    render(<Datum value={42} />);
+    render(<Datum value={42} slot={0} />);
     const datumElement = screen.getByText('42');
     expect(datumElement).toBeInTheDocument();
   });
