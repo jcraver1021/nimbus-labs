@@ -3,7 +3,8 @@ import {bubbleSort} from './bubbleSort';
 import {insertionSort} from './insertionSort';
 import {selectionSort} from './selectionSort';
 
-// Add new algorithms here — they will appear automatically in the selector.
+// list of all implemented sorting algorithms (in display order)
+// the tester will pick them up automatically
 export const algorithms: SortAlgorithm[] = [
   bubbleSort,
   selectionSort,

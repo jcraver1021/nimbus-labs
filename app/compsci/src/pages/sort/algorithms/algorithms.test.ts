@@ -2,7 +2,6 @@ import {describe, it, expect} from 'vitest';
 import {type SortOps} from '../../../common/sortAlgorithm';
 import {algorithms} from './index';
 
-/** Builds a SortOps that operates directly on arr — no animation. */
 function mockOps(arr: number[]): SortOps {
   return {
     length: arr.length,
