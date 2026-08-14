@@ -66,6 +66,7 @@ function ArraySort() {
   function handleGenerate() {
     abortRef.current = true;
     setInTransition(false);
+    setSortKey(0);
     setEntries(generateEntries(arraySize));
     setEntriesKey(k => k + 1);
   }
@@ -79,6 +80,7 @@ function ArraySort() {
   function handleStop() {
     abortRef.current = true;
     setInTransition(false);
+    setSortKey(0);
   }
 
   function handleSortEnd() {
@@ -142,7 +144,12 @@ function ArraySort() {
             <Select
               label="Algorithm"
               value={algorithmIndex}
-              onChange={e => setAlgorithmIndex(e.target.value as number)}
+              onChange={e => {
+                abortRef.current = true;
+                setInTransition(false);
+                setSortKey(0);
+                setAlgorithmIndex(e.target.value as number);
+              }}
             >
               {algorithms.map((alg, idx) => (
                 <MenuItem key={alg.name} value={idx}>
