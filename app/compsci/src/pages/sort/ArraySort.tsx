@@ -99,70 +99,98 @@ function ArraySort() {
   };
 
   return (
-    <Stack spacing={2} alignItems="flex-start" padding={4}>
-      <Typography variant="h4">Array Sort Visualization</Typography>
-      <Stack spacing={2} alignItems="center">
-        <Box>
-          <Typography>Array Size</Typography>
-          <Slider
-            disabled={inTransition}
-            defaultValue={arraySize}
-            min={minArraySize}
-            max={maxArraySize}
-            onChange={(_e, newValue) => setArraySize(newValue as number)}
-            valueLabelDisplay="auto"
-          />
-        </Box>
-        <Box>
-          <Typography>Speed</Typography>
-          <Slider
-            value={speed}
-            min={0.5}
-            max={4}
-            step={null}
-            marks={speedMarks}
-            onChange={(_e, newValue) => setSpeed(newValue as number)}
-            sx={{minWidth: 180}}
-          />
-        </Box>
-        <FormControl size="small" disabled={inTransition} sx={{minWidth: 180}}>
-          <InputLabel>Algorithm</InputLabel>
-          <Select
-            label="Algorithm"
-            value={algorithmIndex}
-            onChange={e => setAlgorithmIndex(e.target.value as number)}
-          >
-            {algorithms.map((alg, idx) => (
-              <MenuItem key={alg.name} value={idx}>
-                {alg.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button
-          variant="contained"
-          disabled={inTransition}
-          onClick={handleGenerate}
-        >
-          Generate
-        </Button>
-        {inTransition ? (
-          <Button variant="outlined" color="error" onClick={handleStop}>
-            Stop
-          </Button>
-        ) : (
-          <Button variant="contained" onClick={handleSort}>
-            Sort
-          </Button>
-        )}
-      </Stack>
-
-      <Typography variant="h6">{algorithm.name}</Typography>
-      <Typography variant="body2">
-        Time complexity: {algorithm.metadata.timeComplexity}
+    <Stack spacing={3} padding={4}>
+      {/* Title */}
+      <Typography variant="h4" textAlign="center">
+        Array Sort Visualization
       </Typography>
-      <pre className="code">{algorithm.code}</pre>
 
+      {/* Top row: controls left, algorithm info right */}
+      <Box sx={{display: 'flex', gap: 4, alignItems: 'flex-start'}}>
+        {/* Controls */}
+        <Stack spacing={2} sx={{minWidth: 200}}>
+          <Box>
+            <Typography variant="body2" gutterBottom>
+              Array Size
+            </Typography>
+            <Slider
+              disabled={inTransition}
+              defaultValue={arraySize}
+              min={minArraySize}
+              max={maxArraySize}
+              onChange={(_e, newValue) => setArraySize(newValue as number)}
+              valueLabelDisplay="auto"
+              sx={{minWidth: 180}}
+            />
+          </Box>
+          <Box>
+            <Typography variant="body2" gutterBottom>
+              Speed
+            </Typography>
+            <Slider
+              value={speed}
+              min={0.5}
+              max={4}
+              step={null}
+              marks={speedMarks}
+              onChange={(_e, newValue) => setSpeed(newValue as number)}
+              sx={{minWidth: 180}}
+            />
+          </Box>
+          <FormControl size="small" disabled={inTransition}>
+            <InputLabel>Algorithm</InputLabel>
+            <Select
+              label="Algorithm"
+              value={algorithmIndex}
+              onChange={e => setAlgorithmIndex(e.target.value as number)}
+            >
+              {algorithms.map((alg, idx) => (
+                <MenuItem key={alg.name} value={idx}>
+                  {alg.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Stack direction="row" spacing={1}>
+            <Button
+              variant="contained"
+              disabled={inTransition}
+              onClick={handleGenerate}
+            >
+              Generate
+            </Button>
+            {inTransition ? (
+              <Button variant="outlined" color="error" onClick={handleStop}>
+                Stop
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={handleSort}>
+                Sort
+              </Button>
+            )}
+          </Stack>
+        </Stack>
+
+        {/* Algorithm info + pseudocode */}
+        <Box sx={{flex: 1, minWidth: 0}}>
+          <Typography variant="h6">{algorithm.name}</Typography>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            Time complexity: {algorithm.metadata.timeComplexity}
+          </Typography>
+          <pre
+            className="code"
+            style={{
+              maxHeight: 260,
+              overflowY: 'auto',
+              margin: 0,
+            }}
+          >
+            {algorithm.code}
+          </pre>
+        </Box>
+      </Box>
+
+      {/* Visualization */}
       {algorithm.scene === 'flat' && (
         <FlatSortScene
           key={sceneKey}

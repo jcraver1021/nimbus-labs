@@ -50,9 +50,8 @@ export default function MergeSortScene({
     if (sortKey === 0) return;
 
     // Local mutable array — same ids, mutable values.
+    // Elements never move in merge sort; only values change.
     const arr: DatumEntry[] = entries.map(e => ({...e}));
-    // Slots are always identity for merge sort (elements never move).
-    const slots = slotsFromEntries(arr);
 
     const delay = (ms: number) =>
       new Promise<void>(resolve => {
@@ -77,9 +76,9 @@ export default function MergeSortScene({
 
       read: async (i: number) => {
         if (abortRef.current) return arr[i].value;
-        const id = slots.get(arr[i].id) ?? i;
-        setLifted(new Set([id]));
-        setStates(new Map([[arr[i].id, 'selected']]));
+        const entryId = arr[i].id;
+        setLifted(new Set([entryId]));
+        setStates(new Map([[entryId, 'selected']]));
         await delay(DEFAULT_ANIMATION_CONFIG.riseDuration);
         setLifted(new Set());
         setStates(new Map());
