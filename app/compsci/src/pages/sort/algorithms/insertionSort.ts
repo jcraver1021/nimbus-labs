@@ -1,6 +1,7 @@
-import {type SortAlgorithm} from '../../../common/sortAlgorithm';
+import {type FlatAlgorithm} from '../../../common/sortAlgorithm';
 
-export const insertionSort: SortAlgorithm = {
+export const insertionSort: FlatAlgorithm = {
+  scene: 'flat',
   name: 'Insertion Sort',
   metadata: {
     timeComplexity: 'O(n²)',
@@ -12,13 +13,15 @@ export const insertionSort: SortAlgorithm = {
     j := j-1;
   }
 }`,
-  sort: async ({compare, swap, length}) => {
+  sort: async ({compare, swap, length, setActiveRange, clearActiveRange}) => {
     for (let i = 1; i < length; i++) {
+      await setActiveRange?.(i, length);
       let j = i;
       while (j > 0 && (await compare(j - 1, j))) {
         await swap(j - 1, j);
         j--;
       }
     }
+    await clearActiveRange?.();
   },
 };
