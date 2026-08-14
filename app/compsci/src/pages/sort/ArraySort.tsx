@@ -60,7 +60,10 @@ function ArraySort() {
 
   const abortRef = useRef(false);
   const speedRef = useRef(speed);
-  speedRef.current = speed;
+
+  useEffect(() => {
+    speedRef.current = speed;
+  });
 
   useEffect(() => {
     return () => {
