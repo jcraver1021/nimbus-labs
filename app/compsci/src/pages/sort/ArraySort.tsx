@@ -13,6 +13,10 @@ import {
 import {type Selection} from '../../common/selection';
 import {type DatumEntry} from '../../common/datum';
 import {type SortOps} from '../../common/sortAlgorithm';
+import {
+  DEFAULT_ANIMATION_CONFIG,
+  scaleAnimation,
+} from '../../common/animationConfig';
 import {algorithms} from './algorithms';
 import Array from '../../components/array/Array';
 
@@ -20,10 +24,12 @@ const minArraySize = 1;
 const maxArraySize = 16;
 const defaultArraySize = 5;
 
-// Animation timing constants (ms).
-const RISE_MS = 300;
-const SLIDE_MS = 350;
-const LOWER_MS = 200;
+const speedMarks = [
+  {value: 0.5, label: '0.5×'},
+  {value: 1, label: '1×'},
+  {value: 2, label: '2×'},
+  {value: 4, label: '4×'},
+];
 
 let nextId = 0;
 
@@ -41,6 +47,7 @@ function slotsFromEntries(entries: DatumEntry[]): Map<number, number> {
 function ArraySort() {
   const [arraySize, setArraySize] = useState(defaultArraySize);
   const [algorithmIndex, setAlgorithmIndex] = useState(0);
+  const [speed, setSpeed] = useState(1);
   const [entries, setEntries] = useState<DatumEntry[]>(() =>
     generateEntries(defaultArraySize)
   );
@@ -52,6 +59,11 @@ function ArraySort() {
   const [inTransition, setInTransition] = useState(false);
 
   const abortRef = useRef(false);
+  const speedRef = useRef(speed);
+
+  useEffect(() => {
+    speedRef.current = speed;
+  });
 
   useEffect(() => {
     return () => {
@@ -77,14 +89,15 @@ function ArraySort() {
     const arr = [...entries];
     const slotMap = slotsFromEntries(arr);
 
-    // Resolves after ms, or immediately if aborted.
+    // Resolves after ms scaled by current speed, or immediately if aborted.
     const delay = (ms: number) =>
       new Promise<void>(resolve => {
         if (abortRef.current) {
           resolve();
           return;
         }
-        const id = setTimeout(resolve, ms);
+        const scaled = Math.round(ms / speedRef.current);
+        const id = setTimeout(resolve, scaled);
         const poll = setInterval(() => {
           if (abortRef.current) {
             clearTimeout(id);
@@ -92,11 +105,9 @@ function ArraySort() {
             resolve();
           }
         }, 16);
-        setTimeout(() => clearInterval(poll), ms + 1);
+        setTimeout(() => clearInterval(poll), scaled + 1);
       });
 
-    // Tracks which pair is currently risen so consecutive operations on the
-    // same pair skip the redundant lower → rise cycle.
     let activeI: number | null = null;
     let activeJ: number | null = null;
 
@@ -112,7 +123,7 @@ function ArraySort() {
       );
       activeI = i;
       activeJ = j;
-      await delay(RISE_MS);
+      await delay(DEFAULT_ANIMATION_CONFIG.riseDuration);
     };
 
     const lower = async () => {
@@ -120,10 +131,9 @@ function ArraySort() {
       setStates(new Map());
       activeI = null;
       activeJ = null;
-      await delay(LOWER_MS);
+      await delay(DEFAULT_ANIMATION_CONFIG.lowerDuration);
     };
 
-    // Ensures i and j are risen. Lowers the previous pair first if needed.
     const ensureRisen = async (i: number, j: number) => {
       if (activeI === i && activeJ === j) return;
       if (activeI !== null) await lower();
@@ -144,16 +154,14 @@ function ArraySort() {
         await ensureRisen(i, j);
         if (abortRef.current) return;
 
-        // Slide.
         const idA = arr[i].id;
         const idB = arr[j].id;
         const animSlots = new Map(slotMap);
         animSlots.set(idA, j);
         animSlots.set(idB, i);
         setSlots(animSlots);
-        await delay(SLIDE_MS);
+        await delay(DEFAULT_ANIMATION_CONFIG.slideDuration);
 
-        // Commit local data (entries state stays frozen during animation).
         [arr[i], arr[j]] = [arr[j], arr[i]];
         slotMap.set(idA, j);
         slotMap.set(idB, i);
@@ -164,13 +172,11 @@ function ArraySort() {
 
     await algorithms[algorithmIndex].sort(ops);
 
-    // Lower any pair left risen after the algorithm returns.
     if (activeI !== null) {
       setLifted(new Set());
       setStates(new Map());
     }
 
-    // Push the final sorted order to React state in one shot.
     setEntries([...arr]);
     setSlots(slotsFromEntries(arr));
 
@@ -180,6 +186,7 @@ function ArraySort() {
   }
 
   const algorithm = algorithms[algorithmIndex];
+  const animConfig = scaleAnimation(DEFAULT_ANIMATION_CONFIG, speed);
 
   return (
     <Stack spacing={2} alignItems="flex-start" padding={4}>
@@ -194,6 +201,18 @@ function ArraySort() {
             max={maxArraySize}
             onChange={(_e, newValue) => setArraySize(newValue as number)}
             valueLabelDisplay="auto"
+          />
+        </Box>
+        <Box>
+          <Typography>Speed</Typography>
+          <Slider
+            value={speed}
+            min={0.5}
+            max={4}
+            step={null}
+            marks={speedMarks}
+            onChange={(_e, newValue) => setSpeed(newValue as number)}
+            sx={{minWidth: 180}}
           />
         </Box>
         <FormControl size="small" disabled={inTransition} sx={{minWidth: 180}}>
@@ -241,7 +260,13 @@ function ArraySort() {
         Time complexity: {algorithm.metadata.timeComplexity}
       </Typography>
       <pre className="code">{algorithm.code}</pre>
-      <Array entries={entries} slots={slots} lifted={lifted} states={states} />
+      <Array
+        entries={entries}
+        slots={slots}
+        lifted={lifted}
+        states={states}
+        transitionMs={animConfig.slideDuration}
+      />
     </Stack>
   );
 }

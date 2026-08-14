@@ -1,3 +1,4 @@
+import React from 'react';
 import {Box} from '@mui/material';
 import Datum from '../datum/Datum';
 import {type Selection} from '../../common/selection';
@@ -15,9 +16,10 @@ type ArrayProps = {
   slots?: Map<number, number>;
   lifted?: Set<number>;
   states?: Map<number, Selection>;
+  transitionMs?: number;
 };
 
-function Array({entries, slots, lifted, states}: ArrayProps) {
+function Array({entries, slots, lifted, states, transitionMs}: ArrayProps) {
   const containerWidth =
     entries.length * CELL_WIDTH - (CELL_WIDTH - DATUM_SIZE) + CELL_PADDING * 2;
   const containerHeight = DATUM_SIZE + CELL_PADDING * 2;
@@ -38,7 +40,15 @@ function Array({entries, slots, lifted, states}: ArrayProps) {
   return (
     <Box
       className="array"
-      style={{width: containerWidth, height: containerHeight}}
+      style={
+        {
+          width: containerWidth,
+          height: containerHeight,
+          ...(transitionMs !== undefined && {
+            '--datum-transition-ms': `${transitionMs}ms`,
+          }),
+        } as React.CSSProperties
+      }
     >
       {cells}
     </Box>

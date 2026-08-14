@@ -23,7 +23,9 @@ function Datum({value, slot, lifted = false, state}: DatumProps) {
         width: DATUM_SIZE,
         height: DATUM_SIZE,
         transform: `translateX(${x}px) translateY(${y}px)`,
-        transition: 'transform 0.35s ease, background-color 0.3s ease',
+        transition:
+          'transform var(--datum-transition-ms, 350ms) ease,' +
+          ' background-color var(--datum-transition-ms, 350ms) ease',
       }}
     >
       {value}
