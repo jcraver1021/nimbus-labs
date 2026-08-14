@@ -1,4 +1,4 @@
-export type Selection = 'selected' | undefined;
+export type Selection = 'selected' | 'sorted' | undefined;
 
 export const defaultElevation = 1;
 export const selectedElevation = 6;

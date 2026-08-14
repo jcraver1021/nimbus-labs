@@ -11,3 +11,7 @@
 .datum.selected {
   background-color: var(--color-selected);
 }
+
+.datum.sorted {
+  background-color: var(--color-sorted);
+}

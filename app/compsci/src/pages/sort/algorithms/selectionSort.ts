@@ -1,6 +1,7 @@
-import {type SortAlgorithm} from '../../../common/sortAlgorithm';
+import {type FlatAlgorithm} from '../../../common/sortAlgorithm';
 
-export const selectionSort: SortAlgorithm = {
+export const selectionSort: FlatAlgorithm = {
+  scene: 'flat',
   name: 'Selection Sort',
   metadata: {
     timeComplexity: 'O(n²)',
@@ -16,8 +17,9 @@ export const selectionSort: SortAlgorithm = {
     swap(array, i, minIndex);
   }
 }`,
-  sort: async ({compare, swap, length}) => {
+  sort: async ({compare, swap, length, setActiveRange, clearActiveRange}) => {
     for (let i = 0; i < length; i++) {
+      await setActiveRange?.(i, length);
       let minIndex = i;
       for (let j = i + 1; j < length; j++) {
         if (await compare(minIndex, j)) {
@@ -28,5 +30,6 @@ export const selectionSort: SortAlgorithm = {
         await swap(i, minIndex);
       }
     }
+    await clearActiveRange?.();
   },
 };
