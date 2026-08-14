@@ -47,11 +47,29 @@ export type MergeOps = {
    */
   write: (i: number, value: number) => Promise<void>;
 
-  /** Marks [lo, hi) as the current active merge range. */
-  setActiveRange: (lo: number, hi: number) => Promise<void>;
+  /**
+   * Visual comparison: lifts the left candidate at position i (blue) and the
+   * right candidate at position j (teal) for the comparison duration, then
+   * lowers both. Purely visual — the algorithm decides the winner from its
+   * own aux copy.
+   */
+  compare: (i: number, j: number) => Promise<void>;
 
-  /** Clears the active range marker. */
-  clearActiveRange: () => Promise<void>;
+  /**
+   * Shows two range brackets below the array:
+   *   - left half  [leftLo, leftHi)  in blue
+   *   - right half [rightLo, rightHi) in teal
+   * Brackets animate via CSS transitions on each update — no extra delay.
+   */
+  setMergeRanges: (
+    leftLo: number,
+    leftHi: number,
+    rightLo: number,
+    rightHi: number
+  ) => Promise<void>;
+
+  /** Clears both range brackets. */
+  clearMergeRanges: () => Promise<void>;
 };
 
 /**

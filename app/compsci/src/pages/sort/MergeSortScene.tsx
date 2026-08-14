@@ -37,9 +37,11 @@ export default function MergeSortScene({
   const [displayEntries, setDisplayEntries] = useState<DatumEntry[]>(entries);
   const [lifted, setLifted] = useState<Set<number>>(new Set());
   const [states, setStates] = useState<Map<number, Selection>>(new Map());
-  const [activeRange, setActiveRangeState] = useState<[number, number] | null>(
-    null
-  );
+  // Two brackets shown below the array during the merge (collate) phase:
+  //   leftRange  [i, mid)  — remaining elements in the left half  (blue)
+  //   rightRange [j, hi)   — remaining elements in the right half (teal)
+  const [leftRange, setLeftRange] = useState<[number, number] | null>(null);
+  const [rightRange, setRightRange] = useState<[number, number] | null>(null);
 
   const speedRef = useRef(speed);
   useEffect(() => {
@@ -96,14 +98,42 @@ export default function MergeSortScene({
         setStates(new Map());
       },
 
-      setActiveRange: async (lo: number, hi: number) => {
-        setActiveRangeState([lo, hi]);
-        await delay(DEFAULT_ANIMATION_CONFIG.lowerDuration);
+      // Lifts the left candidate (blue) and right candidate (teal) simultaneously,
+      // then lowers both. The algorithm decides the winner from its own aux copy.
+      //
+      // Note: position i may show a stale display value if the merge has already
+      // written to it (k > i). The animation still correctly identifies *which*
+      // position holds each candidate, even if the displayed number has changed.
+      compare: async (i: number, j: number) => {
+        if (abortRef.current) return;
+        const idI = arr[i].id;
+        const idJ = arr[j].id;
+        setLifted(new Set([idI, idJ]));
+        setStates(
+          new Map([
+            [idI, 'left'],
+            [idJ, 'right'],
+          ])
+        );
+        await delay(DEFAULT_ANIMATION_CONFIG.riseDuration);
+        setLifted(new Set());
+        setStates(new Map());
       },
 
-      clearActiveRange: async () => {
-        setActiveRangeState(null);
-        await delay(DEFAULT_ANIMATION_CONFIG.lowerDuration);
+      // No explicit delay — brackets animate via CSS transitions.
+      setMergeRanges: async (
+        leftLo: number,
+        leftHi: number,
+        rightLo: number,
+        rightHi: number
+      ) => {
+        setLeftRange(leftHi > leftLo ? [leftLo, leftHi] : null);
+        setRightRange(rightHi > rightLo ? [rightLo, rightHi] : null);
+      },
+
+      clearMergeRanges: async () => {
+        setLeftRange(null);
+        setRightRange(null);
       },
     };
 
@@ -112,7 +142,8 @@ export default function MergeSortScene({
 
       setLifted(new Set());
       setStates(new Map());
-      setActiveRangeState(null);
+      setLeftRange(null);
+      setRightRange(null);
 
       onEntriesChange([...arr]);
 
@@ -127,10 +158,10 @@ export default function MergeSortScene({
 
   const animConfig = scaleAnimation(DEFAULT_ANIMATION_CONFIG, speed);
   const slots = slotsFromEntries(displayEntries);
-  const rangeLeft =
-    activeRange != null ? activeRange[0] * CELL_WIDTH + CELL_PADDING : 0;
-  const rangeWidth =
-    activeRange != null ? (activeRange[1] - activeRange[0]) * CELL_WIDTH : 0;
+
+  // Pixel geometry helpers for bracket positioning.
+  const bracketLeft = (lo: number) => lo * CELL_WIDTH + CELL_PADDING;
+  const bracketWidth = (lo: number, hi: number) => (hi - lo) * CELL_WIDTH;
 
   return (
     <Box sx={{position: 'relative', display: 'inline-block'}}>
@@ -141,15 +172,34 @@ export default function MergeSortScene({
         states={states}
         transitionMs={animConfig.slideDuration}
       />
-      {activeRange != null && (
+
+      {/* Left-half bracket (blue) — remaining [i, mid) */}
+      {leftRange != null && (
         <Box
           sx={{
             position: 'absolute',
             bottom: -6,
-            left: rangeLeft,
-            width: rangeWidth,
+            left: bracketLeft(leftRange[0]),
+            width: bracketWidth(leftRange[0], leftRange[1]),
             height: 4,
             backgroundColor: 'primary.main',
+            borderRadius: 1,
+            transition: 'left 150ms ease, width 150ms ease',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Right-half bracket (teal) — remaining [j, hi) */}
+      {rightRange != null && (
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: -6,
+            left: bracketLeft(rightRange[0]),
+            width: bracketWidth(rightRange[0], rightRange[1]),
+            height: 4,
+            backgroundColor: '#00897b',
             borderRadius: 1,
             transition: 'left 150ms ease, width 150ms ease',
             pointerEvents: 'none',

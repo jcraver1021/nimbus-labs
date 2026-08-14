@@ -28,8 +28,9 @@ function mockMergeOps(arr: number[]): MergeOps {
       arr[i] = value;
       return Promise.resolve();
     },
-    setActiveRange: () => Promise.resolve(),
-    clearActiveRange: () => Promise.resolve(),
+    compare: () => Promise.resolve(),
+    setMergeRanges: () => Promise.resolve(),
+    clearMergeRanges: () => Promise.resolve(),
   };
 }
 
