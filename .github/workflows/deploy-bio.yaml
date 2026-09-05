@@ -32,6 +32,9 @@ jobs:
   # bio depends on deeptime, ui
   preview:
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
     uses: ./.github/workflows/reusable-deploy-pr.yaml
     with:
       workspace: 'bio'
@@ -42,6 +45,8 @@ jobs:
 
   deploy:
     if: github.event_name == 'push'
+    permissions:
+      contents: read
     uses: ./.github/workflows/reusable-deploy-merge.yaml
     with:
       workspace: 'bio'
