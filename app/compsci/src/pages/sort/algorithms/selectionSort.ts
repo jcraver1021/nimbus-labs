@@ -17,7 +17,14 @@ export const selectionSort: FlatAlgorithm = {
     swap(array, i, minIndex);
   }
 }`,
-  sort: async ({compare, swap, length, setActiveRange, clearActiveRange}) => {
+  sort: async ({
+    compare,
+    swap,
+    length,
+    setActiveRange,
+    clearActiveRange,
+    markSorted,
+  }) => {
     for (let i = 0; i < length; i++) {
       await setActiveRange?.(i, length);
       let minIndex = i;
@@ -29,6 +36,7 @@ export const selectionSort: FlatAlgorithm = {
       if (minIndex !== i) {
         await swap(i, minIndex);
       }
+      await markSorted?.(i);
     }
     await clearActiveRange?.();
   },
