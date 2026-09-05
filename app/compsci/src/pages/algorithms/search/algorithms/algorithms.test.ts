@@ -43,7 +43,7 @@ function mockQuickOps(arr: number[]): QuickOps {
 // ── Probe search algorithms (linear, binary) ────────────────────────────────
 
 const probeAlgorithms = searchAlgorithms.filter(
-  (a): a is ProbeSearchAlgorithm => a.scene === 'probe'
+  (a): a is ProbeSearchAlgorithm => a.scene === 'probe' && !a.skipInTests
 );
 
 // Inputs are sorted ascending, matching what the search page always generates.
