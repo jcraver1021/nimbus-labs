@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "default": "nimbus-laboratories"
+  },
+  "targets": {
+    "nimbus-laboratories": {
+      "hosting": {
+        "root": [
+          "nimbus-laboratories"
+        ],
+        "bio": [
+          "nimbus-laboratories-bio"
+        ],
+        "compsci": [
+          "nimbus-laboratories-compsci"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

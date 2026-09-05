@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import {Box, Typography} from '@mui/material';
+import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
 import {formatTimeYearsAgo, getTimeValue} from '@nimbus-labs/deeptime';
 import {createArthropodGraph} from '../../data/arthropods';
 import GeologicTimeScale from '../../components/GeologicTimeScale';
@@ -59,6 +60,9 @@ function Timeline() {
   return (
     <Box className="timeline-container" ref={containerRef}>
       <Box className="timeline-header">
+        <NimbusBreadcrumbs
+          items={[{label: 'Bio', href: '/'}, {label: 'Timeline'}]}
+        />
         <Typography variant="h4">
           Arthropod Evolution Timeline (Example)
         </Typography>

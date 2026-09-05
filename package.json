@@ -21,9 +21,11 @@
     "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
   },
   "workspaces": [
+    "app/root",
     "app/bio",
     "app/compsci",
-    "lib/deeptime"
+    "lib/deeptime",
+    "lib/ui"
   ],
   "devDependencies": {
     "markdownlint-cli": "^0.48.0"

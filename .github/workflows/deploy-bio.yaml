@@ -1,0 +1,51 @@
+name: Deploy bio
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'app/bio/**'
+      - 'lib/deeptime/**'
+      - 'lib/ui/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'firebase.json'
+      - '.github/workflows/deploy-bio.yaml'
+      - '.github/workflows/reusable-deploy-pr.yaml'
+      - '.github/workflows/reusable-deploy-merge.yaml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/bio/**'
+      - 'lib/deeptime/**'
+      - 'lib/ui/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'firebase.json'
+      - '.github/workflows/deploy-bio.yaml'
+      - '.github/workflows/reusable-deploy-pr.yaml'
+      - '.github/workflows/reusable-deploy-merge.yaml'
+
+jobs:
+  # bio depends on deeptime, ui
+  preview:
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/reusable-deploy-pr.yaml
+    with:
+      workspace: 'bio'
+      target: 'bio'
+      dependencies: '@nimbus-labs/deeptime,@nimbus-labs/ui'
+    secrets:
+      firebase-service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIMBUS_LABORATORIES }}
+
+  deploy:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/reusable-deploy-merge.yaml
+    with:
+      workspace: 'bio'
+      target: 'bio'
+      dependencies: '@nimbus-labs/deeptime,@nimbus-labs/ui'
+    secrets:
+      firebase-service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIMBUS_LABORATORIES }}

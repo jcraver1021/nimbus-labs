@@ -10,7 +10,7 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/ci.yaml'
-      - '.github/workflows/npm-ci-reusable.yaml'
+      - '.github/workflows/reusable-npm-ci.yaml'
       - '!**/*.md'
   pull_request:
     branches:
@@ -21,7 +21,7 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/ci.yaml'
-      - '.github/workflows/npm-ci-reusable.yaml'
+      - '.github/workflows/reusable-npm-ci.yaml'
       - '!**/*.md'
 
 jobs:
@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       deeptime: ${{ steps.filter.outputs.deeptime }}
+      ui: ${{ steps.filter.outputs.ui }}
+      root: ${{ steps.filter.outputs.root }}
       bio: ${{ steps.filter.outputs.bio }}
       compsci: ${{ steps.filter.outputs.compsci }}
     steps:
@@ -42,13 +44,24 @@ jobs:
               - 'lib/deeptime/**'
               - 'package.json'
               - 'package-lock.json'
+            ui:
+              - 'lib/ui/**'
+              - 'package.json'
+              - 'package-lock.json'
+            root:
+              - 'app/root/**'
+              - 'lib/ui/**'
+              - 'package.json'
+              - 'package-lock.json'
             bio:
               - 'app/bio/**'
               - 'lib/deeptime/**'
+              - 'lib/ui/**'
               - 'package.json'
               - 'package-lock.json'
             compsci:
               - 'app/compsci/**'
+              - 'lib/ui/**'
               - 'package.json'
               - 'package-lock.json'
 
@@ -59,32 +72,58 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-    uses: ./.github/workflows/npm-ci-reusable.yaml
+    uses: ./.github/workflows/reusable-npm-ci.yaml
     with:
       workspace: '@nimbus-labs/deeptime'
       node-version: ${{ matrix.node-version }}
 
-  # Test bio app (depends on deeptime)
+  # Test ui library
+  test-lib-ui:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.ui == 'true'
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    uses: ./.github/workflows/reusable-npm-ci.yaml
+    with:
+      workspace: '@nimbus-labs/ui'
+      node-version: ${{ matrix.node-version }}
+
+  # Test root portal app (depends on ui)
+  test-app-root:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.root == 'true'
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    uses: ./.github/workflows/reusable-npm-ci.yaml
+    with:
+      workspace: 'root'
+      dependencies: '@nimbus-labs/ui'
+      node-version: ${{ matrix.node-version }}
+
+  # Test bio app (depends on deeptime, ui)
   test-app-bio:
     needs: detect-changes
     if: needs.detect-changes.outputs.bio == 'true'
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-    uses: ./.github/workflows/npm-ci-reusable.yaml
+    uses: ./.github/workflows/reusable-npm-ci.yaml
     with:
       workspace: 'bio'
-      dependencies: '@nimbus-labs/deeptime'
+      dependencies: '@nimbus-labs/deeptime,@nimbus-labs/ui'
       node-version: ${{ matrix.node-version }}
 
-  # Test compsci app
+  # Test compsci app (depends on ui)
   test-app-compsci:
     needs: detect-changes
     if: needs.detect-changes.outputs.compsci == 'true'
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-    uses: ./.github/workflows/npm-ci-reusable.yaml
+    uses: ./.github/workflows/reusable-npm-ci.yaml
     with:
       workspace: 'compsci'
+      dependencies: '@nimbus-labs/ui'
       node-version: ${{ matrix.node-version }}

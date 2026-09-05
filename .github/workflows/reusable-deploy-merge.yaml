@@ -1,0 +1,55 @@
+name: Deploy Live (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      workspace:
+        description: 'Workspace name (e.g., root, bio, compsci)'
+        required: true
+        type: string
+      target:
+        description: 'Firebase Hosting target (root, bio, compsci)'
+        required: true
+        type: string
+      dependencies:
+        description: 'Comma-separated list of workspace dependencies to build first'
+        required: false
+        type: string
+        default: ''
+    secrets:
+      firebase-service-account:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      - run: npm ci
+
+      # Build dependencies first if specified
+      - name: Build dependencies
+        if: inputs.dependencies != ''
+        run: |
+          IFS=',' read -ra DEPS <<< "${{ inputs.dependencies }}"
+          for dep in "${DEPS[@]}"; do
+            echo "Building dependency: $dep"
+            npm run build -w "$dep"
+          done
+
+      - run: npm run build -w ${{ inputs.workspace }}
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.firebase-service-account }}
+          projectId: nimbus-laboratories
+          target: ${{ inputs.target }}
+          channelId: live

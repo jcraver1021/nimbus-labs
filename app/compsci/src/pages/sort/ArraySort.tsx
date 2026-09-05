@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
 import {type DatumEntry} from '../../common/datum';
 import {
   type Algorithm,
@@ -104,6 +105,14 @@ function ArraySort() {
 
   return (
     <Stack spacing={3} padding={4}>
+      <NimbusBreadcrumbs
+        items={[
+          {label: 'CompSci', href: '/'},
+          {label: 'Algorithms'},
+          {label: 'Sorting'},
+        ]}
+      />
+
       {/* Title */}
       <Typography variant="h4" textAlign="center">
         Array Sort Visualization
