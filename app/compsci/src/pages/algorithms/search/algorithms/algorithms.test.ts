@@ -78,9 +78,10 @@ describe('Search algorithms', () => {
     });
   }
 
-  const quickSelectAlgorithm = searchAlgorithms.find(
-    (a): a is QuickSelectAlgorithm => a.scene === 'quickselect'
-  )!;
+  const quickSelectAlgorithms = searchAlgorithms.filter(
+    (a): a is QuickSelectAlgorithm =>
+      a.scene === 'quickselect' && !a.skipInTests
+  );
 
   const quickSelectCases: [string, number[]][] = [
     ['random', [5, 3, 8, 1, 9, 2, 7, 4, 6]],
@@ -90,17 +91,19 @@ describe('Search algorithms', () => {
     ['single element', [42]],
   ];
 
-  describe(quickSelectAlgorithm.name, () => {
-    for (const [label, input] of quickSelectCases) {
-      it(`${label}: finds every k-th smallest`, async () => {
-        const expectedSorted = [...input].sort((a, b) => a - b);
+  for (const algorithm of quickSelectAlgorithms) {
+    describe(algorithm.name, () => {
+      for (const [label, input] of quickSelectCases) {
+        it(`${label}: finds every k-th smallest`, async () => {
+          const expectedSorted = [...input].sort((a, b) => a - b);
 
-        for (let k = 0; k < input.length; k++) {
-          const arr = [...input];
-          await quickSelectAlgorithm.search(mockQuickOps(arr), k);
-          expect(arr[k]).toBe(expectedSorted[k]);
-        }
-      });
-    }
-  });
+          for (let k = 0; k < input.length; k++) {
+            const arr = [...input];
+            await algorithm.search(mockQuickOps(arr), k);
+            expect(arr[k]).toBe(expectedSorted[k]);
+          }
+        });
+      }
+    });
+  }
 });

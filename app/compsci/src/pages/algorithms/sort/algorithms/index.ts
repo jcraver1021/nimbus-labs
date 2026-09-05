@@ -6,6 +6,7 @@ import {iCantBelieveItCanSort} from './iCantBelieveItCanSort';
 import {insertionSort} from './insertionSort';
 import {mergeSort} from './mergeSort';
 import {quickSort} from './quickSort';
+import {quickSortRandomPivot} from './quickSortRandomPivot';
 import {selectionSort} from './selectionSort';
 import {shellSort} from './shellSort';
 
@@ -19,5 +20,6 @@ export const algorithms: Algorithm[] = [
   mergeSort,
   heapSort,
   quickSort,
+  quickSortRandomPivot,
   bogoSort,
 ];

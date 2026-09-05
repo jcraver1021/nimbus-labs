@@ -1,11 +1,11 @@
 import {type QuickAlgorithm} from '../../sortAlgorithm';
-import {partitionLomuto} from '../../partition';
+import {partitionLomuto, chooseRandomPivot} from '../../partition';
 
-export const quickSort: QuickAlgorithm = {
+export const quickSortRandomPivot: QuickAlgorithm = {
   scene: 'quick',
-  name: 'Quick Sort',
+  name: 'Quick Sort (Random Pivot)',
   metadata: {
-    timeComplexity: 'O(n log n)',
+    timeComplexity: 'O(n log n) expected',
   },
   code: `function quickSort(array, low, high) {
   if (low < high) {
@@ -18,11 +18,10 @@ export const quickSort: QuickAlgorithm = {
 }
 
 function partition(array, low, high) {
-  // Move the median of the first, middle, and last elements to the end
-  // so it's used as the pivot — avoids O(n^2) on sorted/reverse-sorted input.
-  const mid = low + Math.floor((high - low) / 2);
-  const medianIndex = medianOfThree(array, low, mid, high);
-  [array[medianIndex], array[high]] = [array[high], array[medianIndex]];
+  // Pick a uniformly random pivot instead of always array[high] — no input
+  // pattern can be constructed in advance to trigger the worst case.
+  const randomIndex = low + Math.floor(Math.random() * (high - low + 1));
+  [array[randomIndex], array[high]] = [array[high], array[randomIndex]];
 
   const pivot = array[high];
   let i = low;
@@ -45,7 +44,7 @@ function partition(array, low, high) {
     ): Promise<void> => {
       if (low < high) {
         await setActiveRange(low, high + 1);
-        const pi = await partitionLomuto(ops, low, high);
+        const pi = await partitionLomuto(ops, low, high, chooseRandomPivot);
         await quickSortRecursive(low, pi - 1);
         await quickSortRecursive(pi + 1, high);
       } else if (low === high) {
