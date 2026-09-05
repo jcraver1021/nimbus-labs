@@ -1,6 +1,7 @@
-import {type SortAlgorithm} from '../../../common/sortAlgorithm';
+import {type FlatAlgorithm} from '../../../common/sortAlgorithm';
 
-export const bubbleSort: SortAlgorithm = {
+export const bubbleSort: FlatAlgorithm = {
+  scene: 'flat',
   name: 'Bubble Sort',
   metadata: {
     timeComplexity: 'O(n²)',
@@ -12,13 +13,15 @@ export const bubbleSort: SortAlgorithm = {
     }
   }
 }`,
-  sort: async ({compare, swap, length}) => {
+  sort: async ({compare, swap, length, setActiveRange, clearActiveRange}) => {
     for (let i = 0; i < length; i++) {
+      await setActiveRange?.(0, length - i);
       for (let j = 0; j < length - i - 1; j++) {
         if (await compare(j, j + 1)) {
           await swap(j, j + 1);
         }
       }
     }
+    await clearActiveRange?.();
   },
 };

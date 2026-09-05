@@ -11,3 +11,15 @@
 .datum.selected {
   background-color: var(--color-selected);
 }
+
+.datum.sorted {
+  background-color: var(--color-sorted);
+}
+
+.datum.left {
+  background-color: var(--color-left);
+}
+
+.datum.right {
+  background-color: var(--color-right);
+}

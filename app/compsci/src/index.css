@@ -11,6 +11,9 @@
   color: black;
   background-color: white;
   --color-selected: #b3d4fc;
+  --color-sorted: #c8e6c9;
+  --color-left: #bbdefb; /* Blue 100 — merge sort left-half candidate */
+  --color-right: #b2dfdb; /* Teal 100 — merge sort right-half candidate */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
