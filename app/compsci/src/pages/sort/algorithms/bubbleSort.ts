@@ -7,16 +7,16 @@ export const bubbleSort: FlatAlgorithm = {
     timeComplexity: 'O(n²)',
   },
   code: `let n = length;
-  while (n > 1) {
-    let lastSwap = -1;
-    for (let i = 0; i < n - 1; i++) {
-      if (array[i] > array[i + 1]) {
-        swap(array, i, i + 1);
-        lastSwap = i;
-      }
+while (n > 1) {
+  let lastSwap = -1;
+  for (let i = 0; i < n - 1; i++) {
+    if (array[i] > array[i + 1]) {
+      swap(array, i, i + 1);
+      lastSwap = i;
     }
-    n = lastSwap + 1;
-  }`,
+  }
+  n = lastSwap + 1;
+}`,
   sort: async ({
     compare,
     swap,

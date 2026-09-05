@@ -1,4 +1,5 @@
 import {type Algorithm} from '../../../common/sortAlgorithm';
+import {bogoSort} from './bogoSort';
 import {bubbleSort} from './bubbleSort';
 import {heapSort} from './heapSort';
 import {iCantBelieveItCanSort} from './iCantBelieveItCanSort';
@@ -16,4 +17,5 @@ export const algorithms: Algorithm[] = [
   mergeSort,
   heapSort,
   quickSort,
+  bogoSort,
 ];

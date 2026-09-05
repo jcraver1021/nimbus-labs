@@ -154,6 +154,13 @@ type AlgorithmBase = {
   metadata: AlgorithmMetadata;
   /** Source code shown to the viewer alongside the visualization. */
   code: string;
+  /**
+   * Skip this algorithm in the correctness test suite. For algorithms
+   * whose expected running time makes them unfit for automated testing
+   * (e.g. bogo sort's O((n+1)!) expected shuffles). Still shown and
+   * runnable in the UI.
+   */
+  skipInTests?: boolean;
 };
 
 export type FlatAlgorithm = AlgorithmBase & {

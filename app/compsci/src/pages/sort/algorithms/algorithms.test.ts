@@ -94,7 +94,8 @@ const cases: [string, number[], number[]][] = [
 
 describe('Sort algorithms', () => {
   for (const algorithm of algorithms) {
-    describe(algorithm.name, () => {
+    const describeAlgorithm = algorithm.skipInTests ? describe.skip : describe;
+    describeAlgorithm(algorithm.name, () => {
       for (const [label, input, expected] of cases) {
         it(label, async () => {
           const arr = [...input];
