@@ -169,6 +169,11 @@ export default function QuickSortScene({
     };
 
     const run = async () => {
+      // Discard any 'sorted' markers left over from a previous run on this
+      // same array — they don't reflect this run's progress and would
+      // otherwise get clobbered mid-compare (see rise/lower above).
+      setStates(new Map());
+
       await algorithm.sort(ops);
 
       if (activeI !== null) {

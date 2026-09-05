@@ -81,12 +81,12 @@ export default function FlatSortScene({
       const idA = arr[i].id;
       const idB = arr[j].id;
       setLifted(new Set([idA, idB]));
-      setStates(
-        new Map([
-          [idA, 'selected'],
-          [idB, 'selected'],
-        ])
-      );
+      setStates(prev => {
+        const next = new Map(prev);
+        next.set(idA, 'selected');
+        next.set(idB, 'selected');
+        return next;
+      });
       activeI = i;
       activeJ = j;
       await delay(DEFAULT_ANIMATION_CONFIG.riseDuration);
@@ -94,7 +94,15 @@ export default function FlatSortScene({
 
     const lower = async () => {
       setLifted(new Set());
-      setStates(new Map());
+      // Only clear 'selected'; 'sorted' markers accumulated by markSorted
+      // stay in place for the rest of the sort.
+      setStates(prev => {
+        const next = new Map(prev);
+        for (const [id, state] of prev) {
+          if (state === 'selected') next.delete(id);
+        }
+        return next;
+      });
       activeI = null;
       activeJ = null;
       await delay(DEFAULT_ANIMATION_CONFIG.lowerDuration);
@@ -115,6 +123,11 @@ export default function FlatSortScene({
 
       clearActiveRange: async () => {
         setActiveRangeState(null);
+      },
+
+      markSorted: async (index: number) => {
+        const id = arr[index].id;
+        setStates(prev => new Map(prev).set(id, 'sorted'));
       },
 
       compare: async (i: number, j: number) => {
@@ -145,13 +158,19 @@ export default function FlatSortScene({
     };
 
     const run = async () => {
+      // Discard any 'sorted' markers left over from a previous run on this
+      // same array — they don't reflect this run's progress and would
+      // otherwise get clobbered mid-compare (see rise/lower above).
+      setStates(new Map());
+
       await algorithm.sort(ops);
 
       if (activeI !== null) {
         setLifted(new Set());
-        setStates(new Map());
       }
       setActiveRangeState(null);
+      // Mark everything as sorted on completion.
+      setStates(new Map(arr.map(e => [e.id, 'sorted'])));
 
       onEntriesChange([...arr]);
       setSlots(slotsFromEntries(arr));

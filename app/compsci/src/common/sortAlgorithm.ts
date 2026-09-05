@@ -29,6 +29,14 @@ export type FlatOps = {
 
   /** Clears the active range marker. */
   clearActiveRange?: () => Promise<void>;
+
+  /**
+   * Marks the element at index as having reached its final sorted position.
+   * Persists for the remainder of the sort, independent of setActiveRange.
+   * Optional — algorithms that don't call it simply show no sorted markers
+   * until the sort completes.
+   */
+  markSorted?: (index: number) => Promise<void>;
 };
 
 /**
