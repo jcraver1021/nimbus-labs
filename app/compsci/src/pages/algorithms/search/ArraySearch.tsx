@@ -65,6 +65,10 @@ function ArraySearch() {
   const [target, setTarget] = useState(() =>
     defaultTarget(searchAlgorithms[0], entries)
   );
+  // Local text buffer for the target/k field, so the user can freely clear
+  // or edit it without every keystroke being clamped back to a bound (e.g.
+  // an empty field would otherwise parse as 0 and jump straight to the min).
+  const [targetInput, setTargetInput] = useState(String(target));
   const [inTransition, setInTransition] = useState(false);
   const [searchKey, setSearchKey] = useState(0);
   // Incremented on Generate so the scene remounts with fresh initial state,
@@ -84,13 +88,20 @@ function ArraySearch() {
   const targetMin = isQuickSelect ? 1 : 0;
   const targetMax = isQuickSelect ? Math.max(entries.length, 1) : maxValue;
 
+  // Updates target and its text buffer together, so the field never shows a
+  // stale value after a programmatic change (Generate, algorithm switch).
+  function setTargetAndInput(value: number) {
+    setTarget(value);
+    setTargetInput(String(value));
+  }
+
   function handleGenerate() {
     abortRef.current = true;
     setInTransition(false);
     setSearchKey(0);
     const next = generateEntries(arraySize);
     setEntries(next);
-    setTarget(defaultTarget(algorithm, next));
+    setTargetAndInput(defaultTarget(algorithm, next));
     setEntriesKey(k => k + 1);
   }
 
@@ -170,7 +181,9 @@ function ArraySearch() {
                 setSearchKey(0);
                 const idx = e.target.value as number;
                 setAlgorithmIndex(idx);
-                setTarget(defaultTarget(searchAlgorithms[idx], entries));
+                setTargetAndInput(
+                  defaultTarget(searchAlgorithms[idx], entries)
+                );
               }}
             >
               {searchAlgorithms.map((alg, idx) => (
@@ -185,13 +198,21 @@ function ArraySearch() {
             type="number"
             size="small"
             disabled={inTransition}
-            value={target}
+            value={targetInput}
             onChange={e => {
-              const raw = Number(e.target.value);
-              if (Number.isNaN(raw)) return;
-              setTarget(Math.min(Math.max(raw, targetMin), targetMax));
+              const raw = e.target.value;
+              setTargetInput(raw);
+              // Let the field sit empty (or mid-edit) without forcing a
+              // clamp; only commit once it's a real number.
+              if (raw.trim() === '') return;
+              const parsed = Number(raw);
+              if (!Number.isFinite(parsed)) return;
+              setTargetAndInput(
+                Math.min(Math.max(Math.round(parsed), targetMin), targetMax)
+              );
             }}
-            slotProps={{htmlInput: {min: targetMin, max: targetMax}}}
+            onBlur={() => setTargetInput(String(target))}
+            slotProps={{htmlInput: {min: targetMin, max: targetMax, step: 1}}}
           />
           <Stack direction="row" spacing={1}>
             <Button
