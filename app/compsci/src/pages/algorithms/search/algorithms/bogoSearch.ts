@@ -1,6 +1,6 @@
 import {type ProbeSearchAlgorithm} from '../../searchAlgorithm';
 
-export const linearSearch: ProbeSearchAlgorithm = {
+export const bogoSearch: ProbeSearchAlgorithm = {
   scene: 'probe',
   name: 'Bogo Search',
   metadata: {
