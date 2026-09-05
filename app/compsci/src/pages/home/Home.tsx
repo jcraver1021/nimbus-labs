@@ -36,6 +36,12 @@ function Home() {
                 secondary="Visualize array sorting algorithms"
               />
             </ListItemButton>
+            <ListItemButton component={RouterLink} to="/algorithms/search">
+              <ListItemText
+                primary="Searching"
+                secondary="Visualize linear search, binary search, and quickselect"
+              />
+            </ListItemButton>
           </List>
         </AccordionDetails>
       </Accordion>
