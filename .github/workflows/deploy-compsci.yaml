@@ -1,0 +1,49 @@
+name: Deploy compsci
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'app/compsci/**'
+      - 'lib/ui/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'firebase.json'
+      - '.github/workflows/deploy-compsci.yaml'
+      - '.github/workflows/reusable-deploy-pr.yaml'
+      - '.github/workflows/reusable-deploy-merge.yaml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/compsci/**'
+      - 'lib/ui/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'firebase.json'
+      - '.github/workflows/deploy-compsci.yaml'
+      - '.github/workflows/reusable-deploy-pr.yaml'
+      - '.github/workflows/reusable-deploy-merge.yaml'
+
+jobs:
+  # compsci depends on ui
+  preview:
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/reusable-deploy-pr.yaml
+    with:
+      workspace: 'compsci'
+      target: 'compsci'
+      dependencies: '@nimbus-labs/ui'
+    secrets:
+      firebase-service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIMBUS_LABORATORIES }}
+
+  deploy:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/reusable-deploy-merge.yaml
+    with:
+      workspace: 'compsci'
+      target: 'compsci'
+      dependencies: '@nimbus-labs/ui'
+    secrets:
+      firebase-service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIMBUS_LABORATORIES }}

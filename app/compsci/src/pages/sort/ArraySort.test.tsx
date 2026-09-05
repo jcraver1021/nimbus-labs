@@ -1,7 +1,16 @@
 import {render, screen, fireEvent, act} from '@testing-library/react';
+import {MemoryRouter} from 'react-router-dom';
 import {vi, describe, it, expect, beforeEach} from 'vitest';
 import {type FlatAlgorithm} from '../../common/sortAlgorithm';
 import ArraySort from './ArraySort';
+
+function renderArraySort() {
+  return render(
+    <MemoryRouter>
+      <ArraySort />
+    </MemoryRouter>
+  );
+}
 
 // ── Mock algorithms ────────────────────────────────────────────────────────
 // vi.hoisted ensures these are initialised before the hoisted vi.mock factory runs.
@@ -39,13 +48,13 @@ describe('ArraySort', () => {
   });
 
   it('does not start sort on initial render', async () => {
-    render(<ArraySort />);
+    renderArraySort();
     await act(async () => {});
     expect(sort1).not.toHaveBeenCalled();
   });
 
   it('starts sort when Sort button clicked', async () => {
-    render(<ArraySort />);
+    renderArraySort();
     await act(async () => {
       fireEvent.click(screen.getByRole('button', {name: /sort/i}));
     });
@@ -53,7 +62,7 @@ describe('ArraySort', () => {
   });
 
   it('shows Sort button (not Stop) after instant sort completes', async () => {
-    render(<ArraySort />);
+    renderArraySort();
     await act(async () => {
       fireEvent.click(screen.getByRole('button', {name: /sort/i}));
     });
@@ -67,7 +76,7 @@ describe('ArraySort', () => {
   // ── Regression: algorithm switch after completed sort must not auto-start ──
 
   it('switching algorithm after sort completes does not restart sort', async () => {
-    render(<ArraySort />);
+    renderArraySort();
 
     // Complete a sort
     await act(async () => {
@@ -95,7 +104,7 @@ describe('ArraySort', () => {
   // ── Regression: Generate after Stop must not auto-start ───────────────────
 
   it('clicking Generate after Stop does not restart sort', async () => {
-    render(<ArraySort />);
+    renderArraySort();
 
     // Start sort
     fireEvent.click(screen.getByRole('button', {name: /sort/i}));
@@ -119,7 +128,7 @@ describe('ArraySort', () => {
   // ── Regression: Generate after completed sort must not auto-start ─────────
 
   it('clicking Generate after sort completes does not restart sort', async () => {
-    render(<ArraySort />);
+    renderArraySort();
 
     // Complete a sort
     await act(async () => {

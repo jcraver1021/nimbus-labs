@@ -6,10 +6,13 @@ import {
   CardContent,
   CardActionArea,
 } from '@mui/material';
+import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
 
 function Home() {
   return (
     <Box sx={{p: 4}}>
+      <NimbusBreadcrumbs items={[{label: 'Bio'}]} />
+
       <Typography variant="h3" gutterBottom>
         Biology Educational Apps
       </Typography>
