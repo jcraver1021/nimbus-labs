@@ -9,5 +9,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/vitest.setup.ts'],
+    slowTestThreshold: 1000, // the array test takes more than 300ms but that's fine
   },
 });

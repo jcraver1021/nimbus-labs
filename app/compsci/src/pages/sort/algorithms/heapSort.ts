@@ -10,6 +10,7 @@ export const heapSort: HeapAlgorithm = {
 for (i := n/2 - 1; i >= 0; i := i-1) {
   siftDown(i, n);
 }
+
 // Extract elements largest-first
 for (end := n-1; end > 0; end := end-1) {
   swap(0, end);

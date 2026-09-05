@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Box} from '@mui/material';
 import {type DatumEntry, CELL_WIDTH, CELL_PADDING} from '../../common/datum';
 import {type Selection} from '../../common/selection';
-import {type FlatAlgorithm} from '../../common/sortAlgorithm';
+import {type QuickAlgorithm} from '../../common/sortAlgorithm';
 import {
   DEFAULT_ANIMATION_CONFIG,
   scaleAnimation,
@@ -10,13 +10,10 @@ import {
 import Array from '../../components/array/Array';
 
 type Props = {
-  algorithm: FlatAlgorithm;
-  /** Current entries from the parent. Changing this resets animation state. */
+  algorithm: QuickAlgorithm;
   entries: DatumEntry[];
-  /** Called with the final sorted array when the sort completes. */
   onEntriesChange: (entries: DatumEntry[]) => void;
   speed: number;
-  /** Increment to trigger a new sort. 0 = no sort on mount. */
   sortKey: number;
   abortRef: React.RefObject<boolean>;
   onSortEnd: () => void;
@@ -26,7 +23,7 @@ function slotsFromEntries(entries: DatumEntry[]): Map<number, number> {
   return new Map(entries.map((e, i) => [e.id, i]));
 }
 
-export default function FlatSortScene({
+export default function QuickSortScene({
   algorithm,
   entries,
   onEntriesChange,
@@ -39,7 +36,11 @@ export default function FlatSortScene({
     slotsFromEntries(entries)
   );
   const [lifted, setLifted] = useState<Set<number>>(new Set());
+  // 'selected' (live compare/swap) and 'sorted' (permanent, once a pivot
+  // lands in its final position). Rendered state also layers in the pivot
+  // marker below — see renderStates.
   const [states, setStates] = useState<Map<number, Selection>>(new Map());
+  const [pivotId, setPivotId] = useState<number | null>(null);
   const [activeRange, setActiveRangeState] = useState<[number, number] | null>(
     null
   );
@@ -49,7 +50,6 @@ export default function FlatSortScene({
     speedRef.current = speed;
   });
 
-  // Run the sort whenever sortKey is incremented.
   useEffect(() => {
     if (sortKey === 0) return;
 
@@ -125,6 +125,17 @@ export default function FlatSortScene({
         setActiveRangeState(null);
       },
 
+      // Tracked by id, not index: the pivot's index (`high`) doesn't move
+      // during a partition, but capturing the id lets the marker keep
+      // following the right element if that ever changes.
+      setPivot: async (index: number) => {
+        setPivotId(arr[index].id);
+      },
+
+      clearPivot: async () => {
+        setPivotId(null);
+      },
+
       markSorted: async (index: number) => {
         const id = arr[index].id;
         setStates(prev => new Map(prev).set(id, 'sorted'));
@@ -169,6 +180,7 @@ export default function FlatSortScene({
         setLifted(new Set());
       }
       setActiveRangeState(null);
+      setPivotId(null);
       // Mark everything as sorted on completion.
       setStates(new Map(arr.map(e => [e.id, 'sorted'])));
 
@@ -191,13 +203,21 @@ export default function FlatSortScene({
   const rangeWidth =
     activeRange != null ? (activeRange[1] - activeRange[0]) * CELL_WIDTH : 0;
 
+  // The pivot marker falls back in behind any live 'selected'/'sorted'
+  // state for the same element, so a mid-partition comparison flash (or
+  // the final "landed" sorted color) always takes visual priority.
+  const renderStates = new Map(states);
+  if (pivotId != null && !renderStates.has(pivotId)) {
+    renderStates.set(pivotId, 'pivot');
+  }
+
   return (
     <Box sx={{position: 'relative', display: 'inline-block'}}>
       <Array
         entries={entries}
         slots={slots}
         lifted={lifted}
-        states={states}
+        states={renderStates}
         transitionMs={animConfig.slideDuration}
       />
       {activeRange != null && (

@@ -4,6 +4,7 @@ import {
   type FlatOps,
   type MergeOps,
   type HeapOps,
+  type QuickOps,
 } from '../../../common/sortAlgorithm';
 import {algorithms} from './index';
 
@@ -46,10 +47,26 @@ function mockHeapOps(arr: number[]): HeapOps {
   };
 }
 
+function mockQuickOps(arr: number[]): QuickOps {
+  return {
+    length: arr.length,
+    compare: (i, j) => Promise.resolve(arr[i] > arr[j]),
+    swap: (i, j) => {
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      return Promise.resolve();
+    },
+    setActiveRange: () => Promise.resolve(),
+    clearActiveRange: () => Promise.resolve(),
+    setPivot: () => Promise.resolve(),
+    clearPivot: () => Promise.resolve(),
+    markSorted: () => Promise.resolve(),
+  };
+}
+
 function mockOps(
   algorithm: Algorithm,
   arr: number[]
-): FlatOps | MergeOps | HeapOps {
+): FlatOps | MergeOps | HeapOps | QuickOps {
   switch (algorithm.scene) {
     case 'flat':
       return mockFlatOps(arr);
@@ -57,6 +74,8 @@ function mockOps(
       return mockMergeOps(arr);
     case 'heap':
       return mockHeapOps(arr);
+    case 'quick':
+      return mockQuickOps(arr);
   }
 }
 
@@ -75,7 +94,8 @@ const cases: [string, number[], number[]][] = [
 
 describe('Sort algorithms', () => {
   for (const algorithm of algorithms) {
-    describe(algorithm.name, () => {
+    const describeAlgorithm = algorithm.skipInTests ? describe.skip : describe;
+    describeAlgorithm(algorithm.name, () => {
       for (const [label, input, expected] of cases) {
         it(label, async () => {
           const arr = [...input];
