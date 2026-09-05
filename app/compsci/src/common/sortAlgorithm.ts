@@ -73,6 +73,49 @@ export type MergeOps = {
 };
 
 /**
+ * Operations for quicksort — in-place partitioning around a pivot, with a
+ * shrinking active range as recursion descends into sub-arrays.
+ */
+export type QuickOps = {
+  readonly length: number;
+
+  /**
+   * Returns true if arr[i] > arr[j].
+   * Highlights and lifts both elements for the comparison duration.
+   */
+  compare: (i: number, j: number) => Promise<boolean>;
+
+  /** Visually swaps arr[i] and arr[j]. */
+  swap: (i: number, j: number) => Promise<void>;
+
+  /**
+   * Marks [lo, hi) as the sub-array currently being partitioned.
+   * Replaces any previously active range.
+   */
+  setActiveRange: (lo: number, hi: number) => Promise<void>;
+
+  /** Clears the active-range marker. */
+  clearActiveRange: () => Promise<void>;
+
+  /**
+   * Marks the element at index as the pivot for the current partition.
+   * The marker follows that element even if the underlying `states` map
+   * (used for comparisons) is cleared in between; it persists until
+   * clearPivot is called.
+   */
+  setPivot: (index: number) => Promise<void>;
+
+  /** Clears the pivot marker. */
+  clearPivot: () => Promise<void>;
+
+  /**
+   * Marks the element at index as having reached its final sorted position.
+   * Persists for the remainder of the sort, like heap sort's sorted region.
+   */
+  markSorted: (index: number) => Promise<void>;
+};
+
+/**
  * Operations for heap sort — in-place swaps with an explicit heap boundary.
  */
 export type HeapOps = {
@@ -120,7 +163,16 @@ export type HeapAlgorithm = AlgorithmBase & {
   sort: (ops: HeapOps) => Promise<void>;
 };
 
-export type Algorithm = FlatAlgorithm | MergeAlgorithm | HeapAlgorithm;
+export type QuickAlgorithm = AlgorithmBase & {
+  scene: 'quick';
+  sort: (ops: QuickOps) => Promise<void>;
+};
+
+export type Algorithm =
+  | FlatAlgorithm
+  | MergeAlgorithm
+  | HeapAlgorithm
+  | QuickAlgorithm;
 
 // Backward-compat aliases so the existing test file compiles unchanged.
 /** @deprecated Use FlatOps */

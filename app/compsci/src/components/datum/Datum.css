@@ -23,3 +23,7 @@
 .datum.right {
   background-color: var(--color-right);
 }
+
+.datum.pivot {
+  background-color: var(--color-pivot);
+}

@@ -16,11 +16,13 @@ import {
   type FlatAlgorithm,
   type MergeAlgorithm,
   type HeapAlgorithm,
+  type QuickAlgorithm,
 } from '../../common/sortAlgorithm';
 import {algorithms} from './algorithms';
 import FlatSortScene from './FlatSortScene';
 import MergeSortScene from './MergeSortScene';
 import HeapSortScene from './HeapSortScene';
+import QuickSortScene from './QuickSortScene';
 
 const minArraySize = 1;
 const maxArraySize = 16;
@@ -216,6 +218,13 @@ function ArraySort() {
         <HeapSortScene
           key={sceneKey}
           algorithm={algorithm as HeapAlgorithm}
+          {...sceneProps}
+        />
+      )}
+      {algorithm.scene === 'quick' && (
+        <QuickSortScene
+          key={sceneKey}
+          algorithm={algorithm as QuickAlgorithm}
           {...sceneProps}
         />
       )}
