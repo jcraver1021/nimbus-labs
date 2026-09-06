@@ -15,5 +15,9 @@ describe('Home', () => {
       'href',
       getNimbusAppUrl('compsci')
     );
+    expect(screen.getByRole('link', {name: /geo/i})).toHaveAttribute(
+      'href',
+      getNimbusAppUrl('geo')
+    );
   });
 });

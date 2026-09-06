@@ -1,0 +1,84 @@
+.dive-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dive-header {
+  flex-shrink: 0;
+  padding: 1rem 2rem 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: white;
+  text-align: left;
+}
+
+/* min-height: 0 lets the scroll area shrink inside the flex column. */
+.dive-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.dive-scroll-area {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.dive-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* The drill head: whichever block crosses this line is the active one. The
+   line has to read against both the pale surface rock and the near-black
+   floor, hence a dark line with a light halo. */
+.dive-marker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 -1px 0 rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
+/* Below a laptop width (MUI's lg), stack the rail and panel around the
+   column rather than beside it. */
+@media (max-width: 1199px) {
+  .dive-page {
+    height: auto;
+  }
+
+  .dive-body {
+    flex-direction: column;
+  }
+
+  /* Still a full viewport: the surface and floor bands are sized in vh, and
+     the depth marker only lines up with them at that height. */
+  .dive-scroll-area {
+    height: 100vh;
+    flex: none;
+  }
+
+  .depth-rail,
+  .earth-state-panel {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .depth-rail {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .depth-rail-jumps {
+    width: auto;
+  }
+}

@@ -1,0 +1,35 @@
+.earth-state-panel {
+  width: 24rem;
+  flex-shrink: 0;
+  padding: 1.5rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  background: #faf7f4;
+  overflow-y: auto;
+}
+
+.earth-fact-label {
+  display: block;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.earth-fact-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.earth-state-notes {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.earth-state-notes li {
+  margin-bottom: 0.5rem;
+}
+
+.earth-state-provenance {
+  display: block;
+  margin-top: 1.5rem;
+}
