@@ -78,6 +78,7 @@ function Timeline() {
 
         <svg
           className="tree-connections"
+          aria-hidden="true"
           style={{
             position: 'absolute',
             left: '440px',

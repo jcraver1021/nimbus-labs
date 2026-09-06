@@ -127,6 +127,7 @@ function ArraySort() {
               Array Size
             </Typography>
             <Slider
+              aria-label="Array size"
               disabled={inTransition}
               defaultValue={arraySize}
               min={minArraySize}
@@ -141,6 +142,7 @@ function ArraySort() {
               Speed
             </Typography>
             <Slider
+              aria-label="Speed"
               value={speed}
               min={0.5}
               max={4}
@@ -151,8 +153,9 @@ function ArraySort() {
             />
           </Box>
           <FormControl size="small" disabled={inTransition}>
-            <InputLabel>Algorithm</InputLabel>
+            <InputLabel id="sort-algorithm-label">Algorithm</InputLabel>
             <Select
+              labelId="sort-algorithm-label"
               label="Algorithm"
               value={algorithmIndex}
               onChange={e => {

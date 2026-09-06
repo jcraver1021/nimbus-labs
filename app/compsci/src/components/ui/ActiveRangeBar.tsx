@@ -19,6 +19,7 @@ export default function ActiveRangeBar({range}: Props) {
 
   return (
     <Box
+      aria-hidden="true"
       sx={{
         position: 'absolute',
         bottom: -6,

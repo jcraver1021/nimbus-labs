@@ -147,6 +147,7 @@ function ArraySearch() {
               Array Size
             </Typography>
             <Slider
+              aria-label="Array size"
               disabled={inTransition}
               defaultValue={arraySize}
               min={minArraySize}
@@ -161,6 +162,7 @@ function ArraySearch() {
               Speed
             </Typography>
             <Slider
+              aria-label="Speed"
               value={speed}
               min={0.5}
               max={4}
@@ -171,8 +173,9 @@ function ArraySearch() {
             />
           </Box>
           <FormControl size="small" disabled={inTransition}>
-            <InputLabel>Algorithm</InputLabel>
+            <InputLabel id="search-algorithm-label">Algorithm</InputLabel>
             <Select
+              labelId="search-algorithm-label"
               label="Algorithm"
               value={algorithmIndex}
               onChange={e => {

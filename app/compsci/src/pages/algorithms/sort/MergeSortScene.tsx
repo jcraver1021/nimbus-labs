@@ -176,6 +176,7 @@ export default function MergeSortScene({
       {/* Left-half bracket (blue) — remaining [i, mid) */}
       {leftRange != null && (
         <Box
+          aria-hidden="true"
           sx={{
             position: 'absolute',
             bottom: -6,
@@ -193,6 +194,7 @@ export default function MergeSortScene({
       {/* Right-half bracket (teal) — remaining [j, hi) */}
       {rightRange != null && (
         <Box
+          aria-hidden="true"
           sx={{
             position: 'absolute',
             bottom: -6,
