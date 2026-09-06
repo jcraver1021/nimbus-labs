@@ -6,20 +6,17 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
+import {NimbusPageHeader} from '@nimbus-labs/ui';
 import AlgorithmsList from '../algorithms/AlgorithmsList';
 
 function Home() {
   return (
     <Box sx={{p: 4, maxWidth: 700, mx: 'auto'}}>
-      <NimbusBreadcrumbs items={[{label: 'CompSci'}]} />
-
-      <Typography variant="h3" gutterBottom>
-        CompSci
-      </Typography>
-      <Typography variant="body1" color="text.secondary" paragraph>
-        Interactive visualizations for algorithms and data structures.
-      </Typography>
+      <NimbusPageHeader breadcrumbs={[{label: 'CompSci'}]} title="CompSci">
+        <Typography variant="body1" color="text.secondary" paragraph>
+          Interactive visualizations for algorithms and data structures.
+        </Typography>
+      </NimbusPageHeader>
 
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>

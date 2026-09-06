@@ -1,12 +1,9 @@
+import {Box, Stack, Typography} from '@mui/material';
 import {
-  Box,
-  Typography,
-  Card,
-  CardActionArea,
-  CardContent,
-  Stack,
-} from '@mui/material';
-import {getNimbusAppUrl} from '@nimbus-labs/ui';
+  NimbusLinkCard,
+  NimbusPageHeader,
+  getNimbusAppUrl,
+} from '@nimbus-labs/ui';
 
 const apps = [
   {
@@ -26,27 +23,21 @@ const apps = [
 function Home() {
   return (
     <Box sx={{p: 4, maxWidth: 900, mx: 'auto'}}>
-      <Typography variant="h3" gutterBottom>
-        Nimbus Labs
-      </Typography>
-      <Typography variant="body1" color="text.secondary" paragraph>
-        A collection of small educational apps. Pick one below to get started.
-      </Typography>
+      <NimbusPageHeader title="Nimbus Labs">
+        <Typography variant="body1" color="text.secondary" paragraph>
+          A collection of small educational apps. Pick one below to get started.
+        </Typography>
+      </NimbusPageHeader>
 
       <Stack direction={{xs: 'column', sm: 'row'}} spacing={3} sx={{mt: 4}}>
         {apps.map(app => (
-          <Card key={app.id} sx={{flex: 1}}>
-            <CardActionArea href={getNimbusAppUrl(app.id)}>
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  {app.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {app.description}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <NimbusLinkCard
+            key={app.id}
+            sx={{flex: 1}}
+            href={getNimbusAppUrl(app.id)}
+            title={app.name}
+            description={app.description}
+          />
         ))}
       </Stack>
     </Box>

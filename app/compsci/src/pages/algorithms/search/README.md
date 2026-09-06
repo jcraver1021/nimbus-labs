@@ -14,3 +14,5 @@ quickselect (with a fixed or random pivot), and bogo search.
 - `algorithms/` — one file per algorithm implementation
 - `ArraySearch.tsx` — the page itself: controls, algorithm info, and the active scene
 - `ProbeSearchScene.tsx` / `QuickSelectScene.tsx` — the two visualization shapes
+- `common/AlgorithmInfoPanel.tsx` (shared with sort) — wraps `@nimbus-labs/ui`'s `NimbusInfoPanel`
+  with an algorithm's name, time complexity, and pseudocode

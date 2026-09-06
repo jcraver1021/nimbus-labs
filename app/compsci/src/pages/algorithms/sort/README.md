@@ -14,3 +14,5 @@ couple of jokes (bogo sort, "I Can't Believe It Can Sort").
 - `algorithms/` — one file per algorithm implementation
 - `ArraySort.tsx` — the page itself: controls, algorithm info, and the active scene
 - `*Scene.tsx` — one visualization component per algorithm shape (flat, merge, quick, heap)
+- `common/AlgorithmInfoPanel.tsx` (shared with search) — wraps `@nimbus-labs/ui`'s `NimbusInfoPanel`
+  with an algorithm's name, time complexity, and pseudocode
