@@ -15,13 +15,10 @@ import Array from '../../../components/data/array/Array';
 
 type Props = {
   algorithm: FlatAlgorithm;
-  /** Current entries from the parent. Changing this resets animation state. */
-  entries: DatumEntry[];
-  /** Called with the final sorted array when the sort completes. */
-  onEntriesChange: (entries: DatumEntry[]) => void;
+  entries: DatumEntry[]; // Current entries from the parent. Changing this resets animation state.
+  onEntriesChange: (entries: DatumEntry[]) => void; // Called with the final sorted array when the sort completes.
   speed: number;
-  /** Increment to trigger a new sort. 0 = no sort on mount. */
-  sortKey: number;
+  sortKey: number; // Increment to trigger a new sort. 0 = no sort on mount.
   abortRef: React.RefObject<boolean>;
   onSortEnd: () => void;
 };

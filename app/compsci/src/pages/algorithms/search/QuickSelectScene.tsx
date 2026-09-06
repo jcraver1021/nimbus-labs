@@ -17,13 +17,10 @@ import Array from '../../../components/data/array/Array';
 type Props = {
   algorithm: QuickSelectAlgorithm;
   entries: DatumEntry[];
-  /** Called with the (partially reordered) array once the search completes. */
-  onEntriesChange: (entries: DatumEntry[]) => void;
-  /** 0-indexed rank to find (0 = smallest). */
-  k: number;
+  onEntriesChange: (entries: DatumEntry[]) => void; // Called with the (partially reordered) array once the search completes.
+  k: number; // 0-indexed rank to find (0 = smallest).
   speed: number;
-  /** Increment to trigger a new search. 0 = no search on mount. */
-  searchKey: number;
+  searchKey: number; // Increment to trigger a new search. 0 = no search on mount.
   abortRef: React.RefObject<boolean>;
   onSearchEnd: () => void;
 };

@@ -11,3 +11,8 @@ export {
 } from './Breadcrumbs';
 
 export {getNimbusAppUrl, type NimbusAppId} from './links';
+
+export {
+  NimbusErrorBoundary,
+  type NimbusErrorBoundaryProps,
+} from './ErrorBoundary';

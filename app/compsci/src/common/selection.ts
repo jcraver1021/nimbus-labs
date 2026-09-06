@@ -1,10 +1,5 @@
 export type Selection =
-  | 'selected'
-  | 'sorted'
-  | 'left'
-  | 'right'
-  | 'pivot'
-  | undefined;
+  'selected' | 'sorted' | 'left' | 'right' | 'pivot' | undefined;
 
 export const defaultElevation = 1;
 export const selectedElevation = 6;

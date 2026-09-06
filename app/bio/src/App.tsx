@@ -1,5 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {ThemeProvider, CssBaseline} from '@mui/material';
+import {NimbusErrorBoundary} from '@nimbus-labs/ui';
 import {theme} from './theme';
 import Home from './pages/home/Home';
 import Timeline from './pages/timeline/Timeline';
@@ -10,12 +11,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/timeline" element={<Timeline />} />
-        </Routes>
-      </BrowserRouter>
+      <NimbusErrorBoundary>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/timeline" element={<Timeline />} />
+          </Routes>
+        </BrowserRouter>
+      </NimbusErrorBoundary>
     </ThemeProvider>
   );
 }

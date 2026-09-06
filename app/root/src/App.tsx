@@ -1,4 +1,5 @@
 import {ThemeProvider, CssBaseline} from '@mui/material';
+import {NimbusErrorBoundary} from '@nimbus-labs/ui';
 import {theme} from './theme';
 import Home from './pages/home/Home';
 
@@ -8,7 +9,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Home />
+      <NimbusErrorBoundary>
+        <Home />
+      </NimbusErrorBoundary>
     </ThemeProvider>
   );
 }

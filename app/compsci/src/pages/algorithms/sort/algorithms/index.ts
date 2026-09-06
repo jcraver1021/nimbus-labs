@@ -10,7 +10,9 @@ import {quickSortRandomPivot} from './quickSortRandomPivot';
 import {selectionSort} from './selectionSort';
 import {shellSort} from './shellSort';
 
-// All algorithms in display order; tests pick them up automatically.
+/**
+ * All algorithms in display order; tests pick them up automatically.
+ */
 export const algorithms: Algorithm[] = [
   bubbleSort,
   selectionSort,
