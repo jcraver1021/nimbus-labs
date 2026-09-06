@@ -1,7 +1,8 @@
 # @nimbus-labs/deeptime
 
 A framework-agnostic TypeScript library for representing graphical relationships over geologic time
-with support for uncertainty.
+with support for uncertainty. Part of [`lib/`](../README.md); see the [repo root](../../README.md)
+for the full project layout.
 
 ## Features
 
