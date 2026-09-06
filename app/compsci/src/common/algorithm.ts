@@ -12,5 +12,5 @@ export type AlgorithmBase = {
   name: string;
   metadata: AlgorithmMetadata;
   code: string; // Source code shown to the viewer alongside the visualization.
-  skipInTests?: boolean; // Skip this algorithm in the correctness test suite, for algorithms whose expected running time makes them unfit for automated testing (e.g. bogo sort's O((n+1)!) expected shuffles); still shown and runnable in the UI.
+  skipInTests?: boolean; // Skip this algorithm in the correctness test suite. Useful for algorithms with unreasonable expected running times.
 };

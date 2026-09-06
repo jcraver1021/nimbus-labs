@@ -8,9 +8,9 @@ import {type QuickOps} from './sortAlgorithm';
 export type ProbeOps = {
   readonly length: number;
 
-  probe: (i: number) => Promise<number>; // Reads and highlights the element at index i, returning its value; lifts the element for the probe duration, like a sort's compare.
+  probe: (i: number) => Promise<number>; // Reads and highlights the element at index i, like a sort's compare.
 
-  setActiveRange?: (lo: number, hi: number) => Promise<void>; // Marks [lo, hi) as the current search window (e.g. binary search's shrinking range); optional, algorithms that don't call it (linear search) simply show no range indicator.
+  setActiveRange?: (lo: number, hi: number) => Promise<void>; // Marks [lo, hi) as the current search window. Optional; unused algorithms show no range indicator.
 
   clearActiveRange?: () => Promise<void>; // Clears the active range marker.
 
@@ -24,7 +24,7 @@ export type ProbeSearchAlgorithm = AlgorithmBase & {
 
 export type QuickSelectAlgorithm = AlgorithmBase & {
   scene: 'quickselect';
-  search: (ops: QuickOps, k: number) => Promise<void>; // Finds the k-th smallest element (0-indexed) via partitioning, reusing the exact QuickOps shape quicksort uses.
+  search: (ops: QuickOps, k: number) => Promise<void>; // Finds the k-th smallest element (0-indexed) via partitioning.
 };
 
 export type SearchAlgorithm = ProbeSearchAlgorithm | QuickSelectAlgorithm;

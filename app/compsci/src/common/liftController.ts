@@ -4,7 +4,7 @@ type SetLifted = React.Dispatch<React.SetStateAction<Set<number>>>;
 type SetStates = React.Dispatch<React.SetStateAction<Map<number, Selection>>>;
 
 export type LiftController = {
-  ensureRisen: (ids: number[]) => Promise<void>; // Rises (lifts + highlights 'selected') the given element ids, lowering whatever was previously risen first if it differs; no-op if the same ids are already risen, letting a `compare` immediately followed by a `swap` on the same pair skip a redundant lower/rise.
+  ensureRisen: (ids: number[]) => Promise<void>; // Lifts and highlights the given ids, lowering whatever was risen before. No-op if already risen on these ids.
   lower: () => Promise<void>; // Lowers whatever is currently risen.
   isRisen: () => boolean; // True if anything is currently risen.
 };
