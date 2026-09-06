@@ -19,7 +19,6 @@ function GeologicTimeScale({
   totalYears,
   timelineHeight,
 }: GeologicTimeScaleProps) {
-  // Filter items in our time range
   const inRange = (item: GeologicPeriod) =>
     item.start <= timeRange.start && item.end >= timeRange.end;
 
@@ -30,7 +29,6 @@ function GeologicTimeScale({
 
   return (
     <Box className="geologic-time-scale">
-      {/* Eon labels (leftmost column) */}
       <Box className="eon-column">
         {eons.map(eon => {
           const top =
@@ -55,7 +53,6 @@ function GeologicTimeScale({
         })}
       </Box>
 
-      {/* Era labels */}
       <Box className="era-column">
         {eras.map(era => {
           const top =
@@ -80,7 +77,6 @@ function GeologicTimeScale({
         })}
       </Box>
 
-      {/* Period labels */}
       <Box className="period-column">
         {periods.map(period => {
           const top =
@@ -106,7 +102,6 @@ function GeologicTimeScale({
         })}
       </Box>
 
-      {/* Epoch bands (rightmost - finest detail) */}
       <Box className="epoch-column">
         {epochs.map(epoch => {
           const top =

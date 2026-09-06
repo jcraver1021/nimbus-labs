@@ -5,40 +5,17 @@ import {type AlgorithmBase} from '../../common/algorithm';
  * (bubble sort, insertion sort, selection sort).
  */
 export type FlatOps = {
-  /**
-   * Returns true if arr[i] > arr[j].
-   * Highlights and lifts both elements for the comparison duration.
-   * If a different pair was previously active, it is lowered first.
-   */
-  compare: (i: number, j: number) => Promise<boolean>;
+  compare: (i: number, j: number) => Promise<boolean>; // Returns true if arr[i] > arr[j], lifting both elements for the comparison.
 
-  /**
-   * Visually swaps arr[i] and arr[j].
-   * If the pair is already risen from a compare call, the slide begins
-   * immediately. Otherwise the pair is risen first.
-   */
-  swap: (i: number, j: number) => Promise<void>;
+  swap: (i: number, j: number) => Promise<void>; // Visually swaps arr[i] and arr[j], rising the pair first if not already risen.
 
-  /** Number of elements in the array. */
-  readonly length: number;
+  readonly length: number; // Number of elements in the array.
 
-  /**
-   * Marks [lo, hi) as the current outer-loop scope (e.g. the unsorted
-   * portion still under consideration). Optional — algorithms that don't
-   * call it simply show no range indicator.
-   */
-  setActiveRange?: (lo: number, hi: number) => Promise<void>;
+  setActiveRange?: (lo: number, hi: number) => Promise<void>; // Marks [lo, hi) as the current outer-loop scope. Optional; unused algorithms show no range indicator.
 
-  /** Clears the active range marker. */
-  clearActiveRange?: () => Promise<void>;
+  clearActiveRange?: () => Promise<void>; // Clears the active range marker.
 
-  /**
-   * Marks the element at index as having reached its final sorted position.
-   * Persists for the remainder of the sort, independent of setActiveRange.
-   * Optional — algorithms that don't call it simply show no sorted markers
-   * until the sort completes.
-   */
-  markSorted?: (index: number) => Promise<void>;
+  markSorted?: (index: number) => Promise<void>; // Marks the element as sorted for the rest of the run. Optional; unused algorithms show no sorted markers.
 };
 
 /**
@@ -48,38 +25,20 @@ export type FlatOps = {
 export type MergeOps = {
   readonly length: number;
 
-  /** Reads the current value at index i. Briefly highlights the element. */
-  read: (i: number) => Promise<number>;
+  read: (i: number) => Promise<number>; // Reads the current value at index i. Briefly highlights the element.
 
-  /**
-   * Writes value to index i.
-   * Highlights the element and updates the displayed value.
-   */
-  write: (i: number, value: number) => Promise<void>;
+  write: (i: number, value: number) => Promise<void>; // Writes value to index i, highlighting and updating the displayed value.
 
-  /**
-   * Visual comparison: lifts the left candidate at position i (blue) and the
-   * right candidate at position j (teal) for the comparison duration, then
-   * lowers both. Purely visual — the algorithm decides the winner from its
-   * own aux copy.
-   */
-  compare: (i: number, j: number) => Promise<void>;
+  compare: (i: number, j: number) => Promise<void>; // Purely visual comparison; lifts both candidates then lowers them. The algorithm decides the winner itself.
 
-  /**
-   * Shows two range brackets below the array:
-   *   - left half  [leftLo, leftHi)  in blue
-   *   - right half [rightLo, rightHi) in teal
-   * Brackets animate via CSS transitions on each update — no extra delay.
-   */
   setMergeRanges: (
     leftLo: number,
     leftHi: number,
     rightLo: number,
     rightHi: number
-  ) => Promise<void>;
+  ) => Promise<void>; // Shows the left/right range brackets below the array, animating between updates.
 
-  /** Clears both range brackets. */
-  clearMergeRanges: () => Promise<void>;
+  clearMergeRanges: () => Promise<void>; // Clears both range brackets.
 };
 
 /**
@@ -89,40 +48,19 @@ export type MergeOps = {
 export type QuickOps = {
   readonly length: number;
 
-  /**
-   * Returns true if arr[i] > arr[j].
-   * Highlights and lifts both elements for the comparison duration.
-   */
-  compare: (i: number, j: number) => Promise<boolean>;
+  compare: (i: number, j: number) => Promise<boolean>; // Returns true if arr[i] > arr[j], lifting both elements for the comparison.
 
-  /** Visually swaps arr[i] and arr[j]. */
-  swap: (i: number, j: number) => Promise<void>;
+  swap: (i: number, j: number) => Promise<void>; // Visually swaps arr[i] and arr[j].
 
-  /**
-   * Marks [lo, hi) as the sub-array currently being partitioned.
-   * Replaces any previously active range.
-   */
-  setActiveRange: (lo: number, hi: number) => Promise<void>;
+  setActiveRange: (lo: number, hi: number) => Promise<void>; // Marks [lo, hi) as the sub-array currently being partitioned.
 
-  /** Clears the active-range marker. */
-  clearActiveRange: () => Promise<void>;
+  clearActiveRange: () => Promise<void>; // Clears the active-range marker.
 
-  /**
-   * Marks the element at index as the pivot for the current partition.
-   * The marker follows that element even if the underlying `states` map
-   * (used for comparisons) is cleared in between; it persists until
-   * clearPivot is called.
-   */
-  setPivot: (index: number) => Promise<void>;
+  setPivot: (index: number) => Promise<void>; // Marks the element as the current pivot until clearPivot is called, even if `states` is cleared in between.
 
-  /** Clears the pivot marker. */
-  clearPivot: () => Promise<void>;
+  clearPivot: () => Promise<void>; // Clears the pivot marker.
 
-  /**
-   * Marks the element at index as having reached its final sorted position.
-   * Persists for the remainder of the sort, like heap sort's sorted region.
-   */
-  markSorted: (index: number) => Promise<void>;
+  markSorted: (index: number) => Promise<void>; // Marks the element as sorted for the rest of the run, like heap sort's sorted region.
 };
 
 /**
@@ -131,20 +69,11 @@ export type QuickOps = {
 export type HeapOps = {
   readonly length: number;
 
-  /**
-   * Returns true if arr[i] > arr[j].
-   * Highlights both nodes in the tree and in the array.
-   */
-  compare: (i: number, j: number) => Promise<boolean>;
+  compare: (i: number, j: number) => Promise<boolean>; // Returns true if arr[i] > arr[j], highlighting both the tree and array nodes.
 
-  /** Swaps elements at indices i and j. */
-  swap: (i: number, j: number) => Promise<void>;
+  swap: (i: number, j: number) => Promise<void>; // Swaps elements at indices i and j.
 
-  /**
-   * Sets the current heap size.
-   * Elements at index >= size are marked as sorted.
-   */
-  setHeapSize: (size: number) => Promise<void>;
+  setHeapSize: (size: number) => Promise<void>; // Sets the current heap size. Elements at index >= size are marked as sorted.
 };
 
 export type FlatAlgorithm = AlgorithmBase & {
@@ -168,10 +97,7 @@ export type QuickAlgorithm = AlgorithmBase & {
 };
 
 export type Algorithm =
-  | FlatAlgorithm
-  | MergeAlgorithm
-  | HeapAlgorithm
-  | QuickAlgorithm;
+  FlatAlgorithm | MergeAlgorithm | HeapAlgorithm | QuickAlgorithm;
 
 // Backward-compat aliases so the existing test file compiles unchanged.
 /** @deprecated Use FlatOps */

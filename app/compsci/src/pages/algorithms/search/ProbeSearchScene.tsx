@@ -14,13 +14,10 @@ import Array from '../../../components/data/array/Array';
 
 type Props = {
   algorithm: ProbeSearchAlgorithm;
-  /** Current entries from the parent. Never reordered by a probe search. */
-  entries: DatumEntry[];
-  /** Value being searched for. */
-  target: number;
+  entries: DatumEntry[]; // Current entries from the parent. Never reordered by a probe search.
+  target: number; // Value being searched for.
   speed: number;
-  /** Increment to trigger a new search. 0 = no search on mount. */
-  searchKey: number;
+  searchKey: number; // Increment to trigger a new search. 0 = no search on mount.
   abortRef: React.RefObject<boolean>;
   onSearchEnd: () => void;
 };

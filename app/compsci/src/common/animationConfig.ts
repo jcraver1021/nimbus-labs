@@ -1,10 +1,7 @@
 export type AnimationConfig = {
-  /** How long elements take to rise before a comparison (ms). */
-  riseDuration: number;
-  /** How long elements take to slide when swapping positions (ms). */
-  slideDuration: number;
-  /** How long elements take to lower after a comparison or swap (ms). */
-  lowerDuration: number;
+  riseDuration: number; // How long elements take to rise before a comparison (ms).
+  slideDuration: number; // How long elements take to slide when swapping positions (ms).
+  lowerDuration: number; // How long elements take to lower after a comparison or swap (ms).
 };
 
 export const DEFAULT_ANIMATION_CONFIG: AnimationConfig = {

@@ -1,34 +1,29 @@
 import {useEffect, useRef, useState} from 'react';
 import {
   Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Slider,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
+import {
+  NimbusArraySizeSlider,
+  NimbusBreadcrumbs,
+  NimbusRunControls,
+  NimbusSpeedSlider,
+  NIMBUS_DEFAULT_ARRAY_SIZE,
+} from '@nimbus-labs/ui';
+import {AlgorithmInfoPanel} from '../../../common/AlgorithmInfoPanel';
 import {type DatumEntry} from '../../../common/datum';
 import {type SearchAlgorithm} from '../searchAlgorithm';
 import {searchAlgorithms} from './algorithms';
 import ProbeSearchScene from './ProbeSearchScene';
 import QuickSelectScene from './QuickSelectScene';
 
-const minArraySize = 1;
-const maxArraySize = 16;
-const defaultArraySize = 5;
 const maxValue = 99;
-
-const speedMarks = [
-  {value: 0.5, label: '0.5×'},
-  {value: 1, label: '1×'},
-  {value: 2, label: '2×'},
-  {value: 4, label: '4×'},
-];
 
 let nextId = 0;
 
@@ -56,11 +51,11 @@ function defaultTarget(
 }
 
 function ArraySearch() {
-  const [arraySize, setArraySize] = useState(defaultArraySize);
+  const [arraySize, setArraySize] = useState(NIMBUS_DEFAULT_ARRAY_SIZE);
   const [algorithmIndex, setAlgorithmIndex] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [entries, setEntries] = useState<DatumEntry[]>(() =>
-    generateEntries(defaultArraySize)
+    generateEntries(NIMBUS_DEFAULT_ARRAY_SIZE)
   );
   const [target, setTarget] = useState(() =>
     defaultTarget(searchAlgorithms[0], entries)
@@ -128,7 +123,7 @@ function ArraySearch() {
       <NimbusBreadcrumbs
         items={[
           {label: 'CompSci', href: '/'},
-          {label: 'Algorithms'},
+          {label: 'Algorithms', href: '/algorithms'},
           {label: 'Searching'},
         ]}
       />
@@ -142,37 +137,16 @@ function ArraySearch() {
       <Box sx={{display: 'flex', gap: 4, alignItems: 'flex-start'}}>
         {/* Controls */}
         <Stack spacing={2} sx={{minWidth: 200}}>
-          <Box>
-            <Typography variant="body2" gutterBottom>
-              Array Size
-            </Typography>
-            <Slider
-              disabled={inTransition}
-              defaultValue={arraySize}
-              min={minArraySize}
-              max={maxArraySize}
-              onChange={(_e, newValue) => setArraySize(newValue as number)}
-              valueLabelDisplay="auto"
-              sx={{minWidth: 180}}
-            />
-          </Box>
-          <Box>
-            <Typography variant="body2" gutterBottom>
-              Speed
-            </Typography>
-            <Slider
-              value={speed}
-              min={0.5}
-              max={4}
-              step={null}
-              marks={speedMarks}
-              onChange={(_e, newValue) => setSpeed(newValue as number)}
-              sx={{minWidth: 180}}
-            />
-          </Box>
+          <NimbusArraySizeSlider
+            disabled={inTransition}
+            defaultValue={arraySize}
+            onChange={setArraySize}
+          />
+          <NimbusSpeedSlider value={speed} onChange={setSpeed} />
           <FormControl size="small" disabled={inTransition}>
-            <InputLabel>Algorithm</InputLabel>
+            <InputLabel id="search-algorithm-label">Algorithm</InputLabel>
             <Select
+              labelId="search-algorithm-label"
               label="Algorithm"
               value={algorithmIndex}
               onChange={e => {
@@ -214,43 +188,20 @@ function ArraySearch() {
             onBlur={() => setTargetInput(String(target))}
             slotProps={{htmlInput: {min: targetMin, max: targetMax, step: 1}}}
           />
-          <Stack direction="row" spacing={1}>
-            <Button
-              variant="contained"
-              disabled={inTransition}
-              onClick={handleGenerate}
-            >
-              Generate
-            </Button>
-            {inTransition ? (
-              <Button variant="outlined" color="error" onClick={handleStop}>
-                Stop
-              </Button>
-            ) : (
-              <Button variant="contained" onClick={handleSearch}>
-                Search
-              </Button>
-            )}
-          </Stack>
+          <NimbusRunControls
+            inTransition={inTransition}
+            onGenerate={handleGenerate}
+            onRun={handleSearch}
+            onStop={handleStop}
+            runLabel="Search"
+          />
         </Stack>
 
-        {/* Algorithm info + pseudocode */}
-        <Box sx={{flex: 1, minWidth: 0}}>
-          <Typography variant="h6">{algorithm.name}</Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Time complexity: {algorithm.metadata.timeComplexity}
-          </Typography>
-          <pre
-            className="code"
-            style={{
-              maxHeight: 260,
-              overflowY: 'auto',
-              margin: 0,
-            }}
-          >
-            {algorithm.code}
-          </pre>
-        </Box>
+        <AlgorithmInfoPanel
+          name={algorithm.name}
+          timeComplexity={algorithm.metadata.timeComplexity}
+          code={algorithm.code}
+        />
       </Box>
 
       {/* Visualization */}

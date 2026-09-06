@@ -11,13 +11,6 @@ export type AlgorithmMetadata = {
 export type AlgorithmBase = {
   name: string;
   metadata: AlgorithmMetadata;
-  /** Source code shown to the viewer alongside the visualization. */
-  code: string;
-  /**
-   * Skip this algorithm in the correctness test suite. For algorithms
-   * whose expected running time makes them unfit for automated testing
-   * (e.g. bogo sort's O((n+1)!) expected shuffles). Still shown and
-   * runnable in the UI.
-   */
-  skipInTests?: boolean;
+  code: string; // Source code shown to the viewer alongside the visualization.
+  skipInTests?: boolean; // Skip this algorithm in the correctness test suite. Useful for algorithms with unreasonable expected running times.
 };

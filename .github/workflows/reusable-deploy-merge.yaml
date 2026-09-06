@@ -16,6 +16,10 @@ on:
         required: false
         type: string
         default: ''
+      ref:
+        description: 'Commit SHA to check out and deploy'
+        required: true
+        type: string
     secrets:
       firebase-service-account:
         required: true
@@ -28,6 +32,8 @@ jobs:
       checks: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:

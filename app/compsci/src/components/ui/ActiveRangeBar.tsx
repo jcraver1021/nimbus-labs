@@ -2,8 +2,7 @@ import {Box} from '@mui/material';
 import {CELL_WIDTH, CELL_PADDING} from '../../common/datum';
 
 type Props = {
-  /** The [lo, hi) range to underline, or null to hide the bar. */
-  range: [number, number] | null;
+  range: [number, number] | null; // The [lo, hi) range to underline, or null to hide the bar.
 };
 
 /**
@@ -20,6 +19,7 @@ export default function ActiveRangeBar({range}: Props) {
 
   return (
     <Box
+      aria-hidden="true"
       sx={{
         position: 'absolute',
         bottom: -6,

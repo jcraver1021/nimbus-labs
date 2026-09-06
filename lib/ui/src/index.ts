@@ -11,3 +11,32 @@ export {
 } from './Breadcrumbs';
 
 export {getNimbusAppUrl, type NimbusAppId} from './links';
+
+export {
+  NimbusErrorBoundary,
+  type NimbusErrorBoundaryProps,
+} from './ErrorBoundary';
+
+export {NimbusInfoPanel, type NimbusInfoPanelProps} from './InfoPanel';
+
+export {
+  NimbusSpeedSlider,
+  type NimbusSpeedSliderProps,
+} from './visualizer/SpeedSlider';
+
+export {
+  NimbusArraySizeSlider,
+  type NimbusArraySizeSliderProps,
+  NIMBUS_MIN_ARRAY_SIZE,
+  NIMBUS_MAX_ARRAY_SIZE,
+  NIMBUS_DEFAULT_ARRAY_SIZE,
+} from './visualizer/ArraySizeSlider';
+
+export {
+  NimbusRunControls,
+  type NimbusRunControlsProps,
+} from './visualizer/RunControls';
+
+export {NimbusPageHeader, type NimbusPageHeaderProps} from './PageHeader';
+
+export {NimbusLinkCard, type NimbusLinkCardProps} from './LinkCard';

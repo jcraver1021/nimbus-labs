@@ -1,6 +1,7 @@
 # Timeline Visualization
 
-A scrollable visualization showing evolutionary relationships over deep time.
+A scrollable visualization showing evolutionary relationships over deep time. One of the
+[bio app's pages](../../../README.md#pages).
 
 ## Features
 

@@ -1,6 +1,13 @@
 # Biology Educational App
 
-Educational web application for biology topics, powered by React and TypeScript.
+Educational web application for biology topics, powered by React and TypeScript. Part of the
+[Nimbus Labs apps](../README.md); see the [repo root](../../README.md) for the full project layout.
+
+## Pages
+
+- **Home** — landing page linking to bio's visualizations
+- [**Evolutionary Timeline**](src/pages/timeline/README.md) — scrollable deep-time visualization of
+  arthropod lineage divergence
 
 ## Features
 
@@ -43,7 +50,10 @@ app/bio/
 
 ## Dependencies
 
-- **@nimbus-labs/deeptime**: Framework-agnostic temporal graph library for geologic time
+- **[@nimbus-labs/deeptime](../../lib/deeptime/README.md)**: Framework-agnostic temporal graph
+  library for geologic time
+- **[@nimbus-labs/ui](../../lib/ui/README.md)**: Shared theme, breadcrumbs, error boundary, and
+  app-url helpers
 - **React**: UI framework
 - **Material-UI**: Component library
 - **React Router**: Client-side routing

@@ -1,6 +1,6 @@
 {
   "name": "nimbus-labs",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "root package for nimbus labs apps",
   "homepage": "https://github.com/jcraver1021/nimbus-labs#readme",
   "bugs": {
@@ -18,7 +18,8 @@
     "fix:md": "markdownlint '**/*.md' --ignore node_modules --fix",
     "check-format:md": "prettier --check '**/*.md'",
     "format:md": "prettier --write '**/*.md'",
-    "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only"
+    "regen-lock": "rm -rf node_modules && rm -f package-lock.json && npm i --workspaces --package-lock-only",
+    "add-dep": "node scripts/add-dep.mjs"
   },
   "workspaces": [
     "app/root",
@@ -28,6 +29,30 @@
     "lib/ui"
   ],
   "devDependencies": {
-    "markdownlint-cli": "^0.48.0"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@eslint/js": "^9.39.1",
+    "@mui/icons-material": "^7.3.6",
+    "@mui/material": "^7.3.6",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "jsdom": "^27.4.0",
+    "markdownlint-cli": "^0.48.0",
+    "prettier": "^3.8.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.11.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.16"
   }
 }

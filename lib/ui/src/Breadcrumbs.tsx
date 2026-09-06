@@ -8,13 +8,11 @@ import {getNimbusAppUrl} from './links';
 
 export interface NimbusBreadcrumbItem {
   label: string;
-  /** Path within the current app, or an absolute URL to another app. */
-  href?: string;
+  href?: string; // Path within the current app, or an absolute URL to another app.
 }
 
 export interface NimbusBreadcrumbsProps {
-  /** Trail below the root "Nimbus Labs" crumb, which is added automatically. */
-  items: NimbusBreadcrumbItem[];
+  items: NimbusBreadcrumbItem[]; // Trail below the root "Nimbus Labs" crumb, which is added automatically.
 }
 
 function isExternal(href: string): boolean {

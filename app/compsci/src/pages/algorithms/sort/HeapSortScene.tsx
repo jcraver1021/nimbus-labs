@@ -64,6 +64,7 @@ function HeapTree({entries, slots, lifted, states, heapSize}: HeapTreeProps) {
     <Box sx={{position: 'relative', width: treeWidth, height: treeHeight}}>
       {/* SVG for edges */}
       <svg
+        aria-hidden="true"
         style={{
           position: 'absolute',
           top: 0,

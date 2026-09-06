@@ -9,6 +9,7 @@ on:
       - 'lib/**'
       - 'package.json'
       - 'package-lock.json'
+      - 'firebase.json'
       - '.github/workflows/ci.yaml'
       - '.github/workflows/reusable-npm-ci.yaml'
       - '!**/*.md'
@@ -20,6 +21,7 @@ on:
       - 'lib/**'
       - 'package.json'
       - 'package-lock.json'
+      - 'firebase.json'
       - '.github/workflows/ci.yaml'
       - '.github/workflows/reusable-npm-ci.yaml'
       - '!**/*.md'
@@ -53,17 +55,34 @@ jobs:
               - 'lib/ui/**'
               - 'package.json'
               - 'package-lock.json'
+              - 'firebase.json'
             bio:
               - 'app/bio/**'
               - 'lib/deeptime/**'
               - 'lib/ui/**'
               - 'package.json'
               - 'package-lock.json'
+              - 'firebase.json'
             compsci:
               - 'app/compsci/**'
               - 'lib/ui/**'
               - 'package.json'
               - 'package-lock.json'
+              - 'firebase.json'
+      - name: Save changes
+        run: |
+          cat <<EOF > changes.json
+          {
+            "root": "${{ steps.filter.outputs.root }}",
+            "bio": "${{ steps.filter.outputs.bio }}",
+            "compsci": "${{ steps.filter.outputs.compsci }}"
+          }
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: changes
+          path: changes.json
+          retention-days: 1
 
   # Test deeptime library
   test-lib-deeptime:
