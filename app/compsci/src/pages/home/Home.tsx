@@ -1,16 +1,13 @@
-import {Link as RouterLink} from 'react-router-dom';
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Box,
-  List,
-  ListItemButton,
-  ListItemText,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {NimbusBreadcrumbs} from '@nimbus-labs/ui';
+import AlgorithmsList from '../algorithms/AlgorithmsList';
 
 function Home() {
   return (
@@ -29,20 +26,7 @@ function Home() {
           <Typography variant="h6">Algorithms</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List disablePadding>
-            <ListItemButton component={RouterLink} to="/algorithms/sort">
-              <ListItemText
-                primary="Sorting"
-                secondary="Visualize array sorting algorithms"
-              />
-            </ListItemButton>
-            <ListItemButton component={RouterLink} to="/algorithms/search">
-              <ListItemText
-                primary="Searching"
-                secondary="Visualize linear search, binary search, and quickselect"
-              />
-            </ListItemButton>
-          </List>
+          <AlgorithmsList />
         </AccordionDetails>
       </Accordion>
 

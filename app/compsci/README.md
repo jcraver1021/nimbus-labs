@@ -7,9 +7,11 @@ project layout.
 ## Pages
 
 - **Home** — landing page linking to compsci's visualizations
-- **Sorting** — step-by-step visualizations of sort algorithms, from classics (bubble, insertion,
-  merge, quicksort, heap sort) to jokes (bogo sort)
-- **Searching** — step-by-step visualizations of linear search, binary search, and quickselect
+- [**Algorithms**](src/pages/algorithms/README.md) — landing page for the algorithm visualizations
+  - [**Sorting**](src/pages/algorithms/sort/README.md) — step-by-step visualizations of sort
+    algorithms, from classics (bubble, insertion, merge, quicksort, heap sort) to jokes (bogo sort)
+  - [**Searching**](src/pages/algorithms/search/README.md) — step-by-step visualizations of linear
+    search, binary search, and quickselect
 
 ## Features
 

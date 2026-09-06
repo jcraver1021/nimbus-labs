@@ -128,7 +128,7 @@ function ArraySearch() {
       <NimbusBreadcrumbs
         items={[
           {label: 'CompSci', href: '/'},
-          {label: 'Algorithms'},
+          {label: 'Algorithms', href: '/algorithms'},
           {label: 'Searching'},
         ]}
       />
