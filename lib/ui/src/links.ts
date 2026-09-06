@@ -1,9 +1,10 @@
-export type NimbusAppId = 'root' | 'bio' | 'compsci';
+export type NimbusAppId = 'root' | 'bio' | 'compsci' | 'geo';
 
 const DEFAULT_URLS: Record<NimbusAppId, string> = {
   root: 'https://nimbus-laboratories.web.app',
   bio: 'https://nimbus-laboratories-bio.web.app',
   compsci: 'https://nimbus-laboratories-compsci.web.app',
+  geo: 'https://nimbus-laboratories-geo.web.app',
 };
 
 /**

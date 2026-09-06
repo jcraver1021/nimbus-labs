@@ -6,6 +6,7 @@ deployed to its own Firebase Hosting site.
 - [root](root/README.md) — the portal, linking out to the other apps
 - [bio](bio/README.md) — biology visualizations
 - [compsci](compsci/README.md) — algorithm visualizations
+- [geo](geo/README.md) — geology visualizations
 
 ## Overview
 

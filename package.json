@@ -25,6 +25,7 @@
     "app/root",
     "app/bio",
     "app/compsci",
+    "app/geo",
     "lib/deeptime",
     "lib/ui"
   ],

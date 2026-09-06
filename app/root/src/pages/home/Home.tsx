@@ -18,6 +18,12 @@ const apps = [
     description:
       'Interactive visualizations for algorithms and data structures.',
   },
+  {
+    id: 'geo' as const,
+    name: 'Geo',
+    description:
+      'A scrollable dive through deep time, reading off the state of the planet layer by layer.',
+  },
 ];
 
 function Home() {

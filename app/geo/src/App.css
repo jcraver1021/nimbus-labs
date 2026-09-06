@@ -1,0 +1,6 @@
+/* The dive page fills the viewport, so #root must not constrain it. */
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+}

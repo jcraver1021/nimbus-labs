@@ -13,6 +13,9 @@
         ],
         "compsci": [
           "nimbus-laboratories-compsci"
+        ],
+        "geo": [
+          "nimbus-laboratories-geo"
         ]
       }
     }

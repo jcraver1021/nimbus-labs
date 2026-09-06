@@ -13,6 +13,9 @@ for the full project layout.
   - Proterozoic, Archean, and Hadean eons (to 4.6 Ga)
   - 200+ divisions following ICS 2024 standards
 - **Query Functions**: Find common ancestors, lineages, divergence times, and more
+- **Earth State**: What the planet was like at each division — water coverage, continents,
+  atmosphere, temperature, day length, and the Moon's apparent size (see
+  [EARTH_STATE.md](EARTH_STATE.md))
 - **Framework Agnostic**: Pure TypeScript with no runtime dependencies
 
 ## Installation
@@ -129,6 +132,19 @@ console.log(formatTimeYearsAgo(6_000_000)); // "6.0M years ago"
 - `getPeriodAtTime(time)` - Get geologic period for a time
 - `getPeriodsInRange(start, end)` - Get all periods in a range
 - `formatTimeYearsAgo(years)` - Format time for display
+
+**Earth State** (see [EARTH_STATE.md](EARTH_STATE.md)):
+
+- `EARTH_STATES` - Curated state of the planet, by division
+- `getEarthState(division)` - One entry exactly as recorded
+- `resolveEarthState(division)` - An entry with its gaps filled in from containing divisions
+- `getEarthStateAtTime(time)` - The resolved state at a moment in the past
+
+**Astronomy:**
+
+- `getSkyState(time)` - Day length, days per year, and the Moon's distance and apparent size
+- `getDayLengthHours(time)` / `getDaysPerYear(time)` - Earth's rotation, from empirical proxies
+- `getLunarDistanceKm(time)` / `getMoonAngularDiameterDegrees(time)` - The Moon's receding orbit
 
 ## Development
 

@@ -36,3 +36,24 @@ export {
   getAges,
   formatTimeYearsAgo,
 } from './geologic-time-scale';
+
+export {
+  EARTH_STATES,
+  getEarthState,
+  resolveEarthState,
+  getEarthStateAtTime,
+  type AtmosphericComposition,
+  type EarthState,
+  type ResolvedEarthState,
+} from './earth-state';
+
+export {
+  getDayLengthHours,
+  getDaysPerYear,
+  getLunarDistanceKm,
+  getMoonAngularDiameterDegrees,
+  getSkyState,
+  PRESENT_LUNAR_DISTANCE_KM,
+  PRESENT_MOON_ANGULAR_DIAMETER_DEGREES,
+  type SkyState,
+} from './earth-astronomy';

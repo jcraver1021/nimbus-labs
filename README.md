@@ -13,7 +13,7 @@ visualization.
 ## Layout
 
 - [`app/`](app/README.md) — the deployed apps: [root portal](app/root/README.md),
-  [bio](app/bio/README.md), [compsci](app/compsci/README.md)
+  [bio](app/bio/README.md), [compsci](app/compsci/README.md), [geo](app/geo/README.md)
 - [`lib/`](lib/README.md) — shared libraries consumed by the apps
 - [`generators/`](generators/README.md) — scripts that generate page/course content artifacts
 - [`terraform/`](terraform/README.md) — infrastructure as code
